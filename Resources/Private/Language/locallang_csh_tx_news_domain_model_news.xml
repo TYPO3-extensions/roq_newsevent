@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<description>Context Sensitive Help (CSH) for table tx_news_domain_model_news</description>
+		<type>CSH</type>
+		<csh_table>tx_news_domain_model_news</csh_table>
+	</meta>
+	<data type="array">
+
+	    <languageKey index="default" type="array">
+			<label index="event_startdate.description">Event start date</label>
+			<label index="event_starttime.description">Event start time</label>
+			<label index="event_enddate.description">Event end date</label>
+			<label index="event_endtime.description">Event end time</label>
+			<label index="event_location.description">Event location (Where, City)</label>
+		</languageKey>
+
+        <languageKey index="nl" type="array">
+            <label index="event_startdate.description">Startdatum van het evenement</label>
+            <label index="event_starttime.description">Starttijd van het evenement</label>
+            <label index="event_enddate.description">Einddatum van het evenement</label>
+            <label index="event_endtime.description">Eindtijd van het evenement</label>
+            <label index="event_location.description">Locatie van het evenement (Waar, Plaats)</label>
+        </languageKey>
+
+	</data>
+</T3locallang>
