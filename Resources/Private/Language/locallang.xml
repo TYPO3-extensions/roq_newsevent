@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for the News event extension in the FRONTEND</description>
+	</meta>
+	<data type="array">
+
+		<languageKey index="default" type="array">
+			<label index="tx_roqnewsevent_domain_model_event">Event info</label>
+			<label index="tx_roqnewsevent_domain_model_event.event_startdate">Start date</label>
+			<label index="tx_roqnewsevent_domain_model_event.even_starttime">Start time</label>
+			<label index="tx_roqnewsevent_domain_model_event.event_enddate">End date</label>
+			<label index="tx_roqnewsevent_domain_model_event.event_endtime">End time</label>
+
+            <label index="event_location">Location</label>
+            <label index="event_date">Date</label>
+            <label index="event_time">Time</label>
+            <label index="event_till">to</label>
+		</languageKey>
+
+        <languageKey index="nl" type="array">
+            <label index="tx_roqnewsevent_domain_model_event">Evenement info</label>
+            <label index="tx_roqnewsevent_domain_model_event.event_startdate">Startdatum</label>
+            <label index="tx_roqnewsevent_domain_model_event.event_starttime">Starttijd</label>
+            <label index="tx_roqnewsevent_domain_model_event.event_enddate">Einddatum</label>
+            <label index="tx_roqnewsevent_domain_model_event.event_endtime">Eindtijd</label>
+
+            <label index="event_location">Locatie</label>
+            <label index="event_date">Datum</label>
+            <label index="event_time">Tijd</label>
+            <label index="event_till">tot</label>
+        </languageKey>
+
+	</data>
+</T3locallang>
