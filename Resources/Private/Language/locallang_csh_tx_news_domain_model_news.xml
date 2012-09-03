@@ -23,5 +23,29 @@
             <label index="event_location.description">Locatie van het evenement (Waar, Plaats)</label>
         </languageKey>
 
+        <languageKey index="de" type="array">
+            <label index="event_startdate.description">Event Startdatum</label>
+            <label index="event_starttime.description">Event Startzeit</label>
+            <label index="event_enddate.description">Event Enddatum</label>
+            <label index="event_endtime.description">Event Endzeit</label>
+            <label index="event_location.description">Event Ort (Wo, Stadt)</label>
+        </languageKey>
+
+        <languageKey index="fr" type="array">
+            <label index="event_startdate.description">Date de début de l'évènement</label>
+            <label index="event_starttime.description">Horaire de début de l'évènement</label>
+            <label index="event_enddate.description">Date de fin de l'évènement</label>
+            <label index="event_endtime.description">Horaire de fin de l'évènement</label>
+            <label index="event_location.description">Lieu de l'évènement (Ville, Pays)</label>
+        </languageKey>
+
+        <languageKey index="dk" type="array">
+            <label index="event_startdate.description">Kursus startdato</label>
+            <label index="event_starttime.description">Kursus starttid</label>
+            <label index="event_enddate.description">Kursus slutdato</label>
+            <label index="event_endtime.description">Kursus sluttid</label>
+            <label index="event_location.description">Kursus sta (By, Land)</label>
+        </languageKey>
+
 	</data>
 </T3locallang>
