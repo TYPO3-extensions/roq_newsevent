@@ -1,16 +1,15 @@
 ﻿News event: Events for the versatile news system
 Extension Key: roq_newsevent
 Language: en
-Version: 1.0.1 (rev. 14)
+Version: 1.0.1 (rev. 23)
 Keywords: forEditors, forAdmins, forBeginners, forIntermediates
-Copyright 2006-2012, Jochem de Groot, <jochem@roquin.nl>
+Copyright 2006-2012, ROQUIN B.V., <extensions@roquin.nl>
 
 This document is published under the Open Content License
 available from http://www.opencontent.org/opl.shtml
 
 The content of this document is related to TYPO3 
 - a GNU/GPL CMS/Framework available from www.typo3.org
-
 Table of Contents
 News event: Events for the versatile news system	1
 Introduction	3
@@ -33,29 +32,24 @@ Known problems	12
 To-Do list	13
 ChangeLog	14
 
-
 Introduction
 What does it do?
 The news event extension extends the versatile news system extension with additional event functionality. The news event extension is based on Extbase and Fluid.
 Screenshots
-Image 1: News plugin with available Event views
+This section shows screenshots of the news event extension. Please note that only the settings which are applicable for the news event extension are visible.
 
-Image 2: Mark a news record as event to add event data
 
-Note: Only the settings which are applicable for news events are visible.
-Image 3: Additional event data when editing a news record
 
-Note: Only the settings which are applicable for news events are visible.
 User's manual
 About news event records
 The records can be created on any page, however it is recommended to create a seperate sysfolder for news event records (next to a sysfolder in which you store your news records).
-See the Tutorial section for more information about, how to use the news event extension.
+See the Tutorial section for more information about how to use the news event extension.
 News event records
 Field:
 Description:
 Required:
 Type
-The type 'Event' has been added as an additional type to mark a news record as an event. If even has been selected an additional event tab will appear in which event information can be defined. See Image 2.
+The type 'Event' has been added as an additional type to mark a news record as an event. If even has been selected an additional event tab will appear in which event information can be defined. See  Image 2.
 Yes
 Start date
 Start date of the event.
@@ -304,8 +298,7 @@ Understandable title & description: Please use English and include how the bug c
 Version of: TYPO3, news system version, and news event
 If possible an attached patch would be very nice!
 To-Do list
-See the roadmap section on Forge: http://forge.typo3.org/projects/extension-roq_newsevent/roadmap
-
+See the roadmap section on Forge: http://forge.typo3.org/projects/extension-roq_newsevent/roadmap.
 ChangeLog
 Version
 Changes:
