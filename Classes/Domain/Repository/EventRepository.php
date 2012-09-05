@@ -146,6 +146,8 @@ class Tx_RoqNewsevent_Domain_Repository_EventRepository extends Tx_News_Domain_R
             }
         }
 
+        $constraints[] = $query->logicalAnd($query->equals('tx_roqnewsevent_is_event',1));
+
         return $constraints;
     }
 }

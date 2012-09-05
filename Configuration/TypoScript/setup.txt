@@ -10,7 +10,7 @@ config.tx_extbase {
             Tx_RoqNewsevent_Domain_Model_Event {
                 mapping {
                     tableName = tx_news_domain_model_news
-                    recordType = Tx_RoqNewsevent_Event
+
                     columns {
                         tx_roqnewsevent_is_event.mapOnProperty = isEvent
                         tx_roqnewsevent_startdate.mapOnProperty = eventStartdate
