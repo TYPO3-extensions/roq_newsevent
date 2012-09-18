@@ -54,7 +54,7 @@ class Tx_RoqNewsevent_Controller_EventController extends Tx_News_Controller_News
      * @param array $settings
      * @return Tx_News_Domain_Model_NewsDemand
      */
-    protected function createDemandObjectFromSettings($settings) {
+    protected function eventCreateDemandObjectFromSettings($settings) {
         $demand = parent::createDemandObjectFromSettings($settings);
 
         // set ordering
@@ -85,7 +85,7 @@ class Tx_RoqNewsevent_Controller_EventController extends Tx_News_Controller_News
      */
     public function eventDateMenuAction(array $overwriteDemand = NULL) {
         $this->settings = $this->initializeSettings($this->settings);
-        $demand = $this->createDemandObjectFromSettings($this->settings);
+        $demand = $this->eventCreateDemandObjectFromSettings($this->settings);
 
         $eventRecords = $this->eventRepository->findDemanded($demand);
 
@@ -109,7 +109,7 @@ class Tx_RoqNewsevent_Controller_EventController extends Tx_News_Controller_News
      */
     public function eventListAction(array $overwriteDemand = NULL) {
         $this->settings = $this->initializeSettings($this->settings);
-        $demand = $this->createDemandObjectFromSettings($this->settings);
+        $demand = $this->eventCreateDemandObjectFromSettings($this->settings);
 
         if ($this->settings['disableOverrideDemand'] != 1 && $overwriteDemand !== NULL) {
             $demand = $this->overwriteDemandObject($demand, $overwriteDemand);
