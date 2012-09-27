@@ -71,12 +71,4 @@ t3lib_extMgm::addTCAcolumns('tx_news_domain_model_news',$tmp_roq_newsevent_colum
 t3lib_extMgm::addToAllTCAtypes('tx_news_domain_model_news', ',--div--;LLL:EXT:roq_newsevent/Resources/Private/Language/locallang_db.xml:tx_roqnewsevent_domain_model_event,');
 t3lib_extMgm::addToAllTCAtypes('tx_news_domain_model_news', 'tx_roqnewsevent_is_event, tx_roqnewsevent_startdate, tx_roqnewsevent_starttime, tx_roqnewsevent_enddate, tx_roqnewsevent_endtime, tx_roqnewsevent_location');
 
-/*
-$TCA['tx_news_domain_model_news']['columns'][$TCA['tx_news_domain_model_news']['ctrl']['type']]['config']['items'][] = array('LLL:EXT:roq_newsevent/Resources/Private/Language/locallang_db.xml:tx_news_domain_model_news.tx_extbase_type.Tx_RoqNewsevent_Event','Tx_RoqNewsevent_Event');
-
-$TCA['tx_news_domain_model_news']['types']['Tx_RoqNewsevent_Event']['showitem'] = $TCA['tx_news_domain_model_news']['types']['0']['showitem'];
-$TCA['tx_news_domain_model_news']['types']['Tx_RoqNewsevent_Event']['showitem'] .= ',--div--;LLL:EXT:roq_newsevent/Resources/Private/Language/locallang_db.xml:tx_roqnewsevent_domain_model_event,';
-$TCA['tx_news_domain_model_news']['types']['Tx_RoqNewsevent_Event']['showitem'] .= 'tx_roqnewsevent_is_event, tx_roqnewsevent_startdate, tx_roqnewsevent_starttime, tx_roqnewsevent_enddate, tx_roqnewsevent_endtime, tx_roqnewsevent_location';
-*/
-
 ?>
