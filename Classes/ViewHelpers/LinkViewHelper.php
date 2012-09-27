@@ -3,7 +3,7 @@
 /**
  * Copyright (c) 2012, ROQUIN B.V. (C), http://www.roquin.nl
  *
- * @author:         J. de Groot
+ * @author:         Jochem de Groot <jochem@roquin.nl>
  * @file:           EventLinkViewHelper.php
  * @description:    ViewHelper to render proper links for event detail view
  */
@@ -25,15 +25,20 @@ class Tx_RoqNewsevent_ViewHelpers_LinkViewHelper extends Tx_News_ViewHelpers_Lin
      * @return string url
      */
     public function render(Tx_News_Domain_Model_News $newsItem, array $settings = array(), $hsc = FALSE, $configuration = array(), $action = NULL) {
-        if(($newsItem->getType() == NEWS_TYPE_DEFAULT) && ($action !== NULL)) {
-            $configuration['additionalParams'] .= '&tx_news_pi1[action]=' . $action;
-        }
+        // modify link action, so that the event detail action will be used (only for normal news records)
+        if($newsItem->getType() == NEWS_TYPE_DEFAULT) {
+            if($action !== NULL) {
+                $configuration['additionalParams'] .= '&tx_news_pi1[action]=' . $action;
+            }
 
-        $link = parent::render($newsItem, $settings, $hsc, $configuration);
+            $link = parent::render($newsItem, $settings, $hsc, $configuration);
 
-        // ignore the getDynamicGetVarsManipulation settings, which can cause the action to be added hardcoded (which is only applicable for news only items)
-        if(($newsItem->getType() == NEWS_TYPE_DEFAULT) && stristr($link, urlencode('tx_news_pi1[action]') . '=detail') !== FALSE) {
-            $link = str_replace(urlencode('tx_news_pi1[action]') . '=detail', urlencode('tx_news_pi1[action]') . '=' . $action, $link);
+            // ignore the getDynamicGetVarsManipulation settings, which can cause the action to be added hardcoded (which is only applicable for news only items)
+            if(stristr($link, urlencode('tx_news_pi1[action]') . '=detail') !== FALSE) {
+                $link = str_replace(urlencode('tx_news_pi1[action]') . '=detail', urlencode('tx_news_pi1[action]') . '=' . $action, $link);
+            }
+        } else {
+            $link = parent::render($newsItem, $settings, $hsc, $configuration);
         }
 
         return $link;

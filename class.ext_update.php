@@ -13,7 +13,7 @@ class ext_update extends t3lib_SCbase {
     /**
      * Main method that is called whenever UPDATE! menu was clicked. This method outputs the result of the update in HTML
      *
-     * @return string: returns result of the performed update in html
+     * @return string: HTML to display
      */
     function main() {
         $affectedRows   = 0;
@@ -45,7 +45,7 @@ class ext_update extends t3lib_SCbase {
         $result         = false;
 
         $result = $GLOBALS['TYPO3_DB']->exec_UPDATEquery(
-            "tx_news_domain_dmodel_news",
+            "tx_news_domain_model_news",
             "type='Tx_RoqNewsevent_Event'",
             array(
                 'type' => 0,
@@ -78,6 +78,10 @@ class ext_update extends t3lib_SCbase {
 
         return false;
     }
+}
+
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/file_list/class.ext_update.php']) {
+	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/file_list/class.ext_update.php']);
 }
 
 ?>
