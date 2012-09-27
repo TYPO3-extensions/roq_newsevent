@@ -1,7 +1,7 @@
 ﻿News event: Events for the versatile news system
 Extension Key: roq_newsevent
 Language: en
-Version: 1.0.1 (rev. 23)
+Version: 1.0.2 (rev. 26)
 Keywords: forEditors, forAdmins, forBeginners, forIntermediates
 Copyright 2006-2012, ROQUIN B.V., <extensions@roquin.nl>
 
@@ -302,6 +302,8 @@ See the roadmap section on Forge: http://forge.typo3.org/projects/extension-roq_
 ChangeLog
 Version
 Changes:
+2.0.2
+Fixed bug #41042 and updated contact details 
 2.0.1
 Native support for more languages, and some minor fixes 
 2.0.0
