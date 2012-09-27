@@ -51,6 +51,28 @@ class Tx_RoqNewsevent_Domain_Model_EventTest extends Tx_Extbase_Tests_Unit_BaseT
 	/**
 	 * @test
 	 */
+	public function getIsEventReturnsInitialValueForBoolean() { 
+		$this->assertSame(
+			TRUE,
+			$this->fixture->getIsEvent()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function setIsEventForBooleanSetsIsEvent() { 
+		$this->fixture->setIsEvent(TRUE);
+
+		$this->assertSame(
+			TRUE,
+			$this->fixture->getIsEvent()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
 	public function getEventStartdateReturnsInitialValueForDate() { }
 
 	/**

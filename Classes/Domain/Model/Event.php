@@ -32,6 +32,13 @@
  */
 class Tx_RoqNewsevent_Domain_Model_Event extends Tx_News_Domain_Model_News {
 
+    /**
+   	 * Is event
+   	 *
+   	 * @var boolean
+   	 */
+   	protected $isEvent = FALSE;
+
 	/**
 	 * Event start date
 	 *
@@ -66,7 +73,36 @@ class Tx_RoqNewsevent_Domain_Model_Event extends Tx_News_Domain_Model_News {
 	 *
 	 * @var string
 	 */
-	protected $eventLocation;
+
+    protected $eventLocation;
+
+   	/**
+   	 * Returns the isEvent
+   	 *
+   	 * @return boolean $isEvent
+   	 */
+   	public function getIsEvent() {
+   		return $this->isEvent;
+   	}
+
+   	/**
+   	 * Sets the isEvent
+   	 *
+   	 * @param boolean $isEvent
+   	 * @return void
+   	 */
+   	public function setIsEvent($isEvent) {
+   		$this->isEvent = $isEvent;
+   	}
+
+   	/**
+   	 * Returns the boolean state of isEvent
+   	 *
+   	 * @return boolean
+   	 */
+   	public function isIsEvent() {
+   		return $this->getIsEvent();
+   	}
 
 	/**
 	 * Returns the eventStartdate

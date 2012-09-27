@@ -8,6 +8,7 @@
 	<data type="array">
 
 	    <languageKey index="default" type="array">
+            <label index="is_event.description">Is an event</label>
 			<label index="event_startdate.description">Event start date</label>
 			<label index="event_starttime.description">Event start time</label>
 			<label index="event_enddate.description">Event end date</label>
@@ -16,6 +17,7 @@
 		</languageKey>
 
         <languageKey index="nl" type="array">
+            <label index="is_event.description">Is een evenement</label>
             <label index="event_startdate.description">Startdatum van het evenement</label>
             <label index="event_starttime.description">Starttijd van het evenement</label>
             <label index="event_enddate.description">Einddatum van het evenement</label>
@@ -24,6 +26,7 @@
         </languageKey>
 
         <languageKey index="de" type="array">
+            <label index="is_event.description">Ist eine event</label>
             <label index="event_startdate.description">Event Startdatum</label>
             <label index="event_starttime.description">Event Startzeit</label>
             <label index="event_enddate.description">Event Enddatum</label>
@@ -32,6 +35,7 @@
         </languageKey>
 
         <languageKey index="fr" type="array">
+            <label index="is_event.description">Ceci est un évènement</label>
             <label index="event_startdate.description">Date de début de l'évènement</label>
             <label index="event_starttime.description">Horaire de début de l'évènement</label>
             <label index="event_enddate.description">Date de fin de l'évènement</label>
@@ -40,6 +44,7 @@
         </languageKey>
 
         <languageKey index="dk" type="array">
+            <label index="is_event.description">Er et kursus</label>
             <label index="event_startdate.description">Kursus startdato</label>
             <label index="event_starttime.description">Kursus starttid</label>
             <label index="event_enddate.description">Kursus slutdato</label>
