@@ -5,24 +5,47 @@
  * @author:         Jochem de Groot <jochem@roquin.nl>
  * @file:           class.ext_update.php
  * @created:        26-9-12 16:28
- * @description:    Update class for updating news event records from version 2.0.X to 2.1.X
+ * @description:    Update class for updating news event from version 2.0.X to newer versions
  */
 
-class ext_update {
+class ext_update extends t3lib_SCbase {
 
     /**
-      * Performs the Updates
-      *
-      * @return string: returns result of the performed update in html
-      */
+     * Main method that is called whenever UPDATE! menu was clicked. This method outputs the result of the update in HTML
+     *
+     * @return string: returns result of the performed update in html
+     */
     function main() {
         $affectedRows   = 0;
-        $returnValue    = '';
+        $errorMessage   = '';
+        $this->content  = '';
+        $this->doc      = t3lib_div::makeInstance('noDoc');
+
+        $this->doc->backPath = $GLOBALS['BACK_PATH'];
+
+        if($this->updateNewsEventRecords($errorMessage, $affectedRows) == 0) {
+            $this->content .= $this->doc->section('','The update has been performed successfully: ' . $affectedRows . " row(s) affected.");
+        } else {
+            $this->content .= $this->doc->section('','An error occurred while preforming updates. Error: ' . $errorMessage);
+        }
+
+        return $this->content;
+    }
+
+    /**
+     * Updates news type and news event tx_roqnewsevent_is_event attribute in database news event records
+     *
+     * @param $errorMessage: stores the error message, if an error has been occurred
+     * @param $affectedRows: stores the affected rows, when the query has been executed
+     * @return integer: returns error code (0 == success)
+     */
+    protected function updateNewsEventRecords(&$errorMessage, &$affectedRows) {
+        $errorCode      = 0;
+        $affectedRows   = 0;
         $result         = false;
 
-        // update news type and news event tx_roqnewsevent_is_event attribute
         $result = $GLOBALS['TYPO3_DB']->exec_UPDATEquery(
-            "tx_news_domain_model_news",
+            "tx_news_domain_dmodel_news",
             "type='Tx_RoqNewsevent_Event'",
             array(
                 'type' => 0,
@@ -32,18 +55,16 @@ class ext_update {
 
         if($result) {
             $affectedRows   = $GLOBALS['TYPO3_DB']->sql_affected_rows();
-            $returnValue    .= '<div style="color:green">The update has been performed successfully: ' . $affectedRows . " row(s) affected.</div>";
         } else {
-            $returnValue    .=
-                '<div style="color:#FF0000">An error occurred while preforming updates. Error: '.
-                    $GLOBALS['TYPO3_DB']->sql_error() .' (' . $GLOBALS['TYPO3_DB']->sql_errno() . ').</div>';
+            $errorCode      = $GLOBALS['TYPO3_DB']->sql_errno();
+            $errorMessage   = 'Could not update table tx_news_domain_model_news. ' . $GLOBALS['TYPO3_DB']->sql_error() .' (Error code: ' . $errorCode . ').';
         }
 
-        return $returnValue;
+        return $errorCode;
     }
 
     /**
-     * Check if the update is necessary
+     * Check if the update is necessary, and whether the "UPDATE!" menu item should be shown.
      *
      * @return boolean: returns true if update should be performed
      */
