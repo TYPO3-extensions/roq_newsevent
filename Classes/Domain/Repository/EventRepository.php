@@ -139,14 +139,22 @@ class Tx_RoqNewsevent_Domain_Repository_EventRepository extends Tx_News_Domain_R
             $constraints[] = $query->logicalOr($searchConstraints);
         }
 
+            // events only
+        $constraints[] = $query->logicalAnd($query->equals('tx_roqnewsevent_is_event',1));
+
+            // the event must have an event start date
+        $constraints[] = $query->logicalAnd(
+            $query->logicalNot(
+                $query->equals('tx_roqnewsevent_startdate',0)
+            )
+        );
+
             // Clean not used constraints
         foreach($constraints as $key => $value) {
             if (is_null($value)) {
                 unset($constraints[$key]);
             }
         }
-
-        $constraints[] = $query->logicalAnd($query->equals('tx_roqnewsevent_is_event',1));
 
         return $constraints;
     }
