@@ -49,12 +49,12 @@ class Tx_RoqNewsevent_Controller_EventController extends Tx_News_Controller_News
         $extbaseFrameworkConfiguration =
             $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 
-        // fetch the current controller action which is set in the news plugin
+        // Fetch the current controller action which is set in the news plugin
         $controllerConfigurationAction = implode(";",$extbaseFrameworkConfiguration['controllerConfiguration']['News']['actions']);
 
         parent::setViewConfiguration($view);
 
-        // check if the current controller configuration action matches with one of the event controller actions
+        // Check if the current controller configuration action matches with one of the event controller actions
         foreach($GLOBALS['TYPO3_CONF_VARS']['EXT']['news']['switchableControllerActions']['newItems'] as $switchableControllerActions => $value) {
             $action = str_replace('News->', '', $switchableControllerActions);
 
@@ -73,6 +73,7 @@ class Tx_RoqNewsevent_Controller_EventController extends Tx_News_Controller_News
      * @return void
      */
     protected function setEventViewConfiguration(Tx_Extbase_MVC_View_ViewInterface $view) {
+        // Template Path Override
         $extbaseFrameworkConfiguration =
             $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 
