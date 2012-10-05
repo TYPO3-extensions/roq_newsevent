@@ -22,16 +22,6 @@ class Tx_RoqNewsevent_Controller_EventController extends Tx_News_Controller_News
 	 */
 	protected $eventRepository;
 
-	/**
-	 * injectEventRepository
-	 *
-	 * @param Tx_RoqNewsevent_Domain_Repository_EventRepository $eventRepository
-	 * @return void
-	 */
-	public function injectEventRepository(Tx_RoqNewsevent_Domain_Repository_EventRepository $eventRepository) {
-		$this->eventRepository = $eventRepository;
-	}
-
     /**
    	 * Initializes the settings
      *
@@ -47,6 +37,73 @@ class Tx_RoqNewsevent_Controller_EventController extends Tx_News_Controller_News
 
         return $settings;
    	}
+
+    /**
+     * Overrides setViewConfiguration: Use event view configuration instead of news view configuration if an event
+     * controller action is used
+     *
+     * @param Tx_Extbase_MVC_View_ViewInterface $view
+     * @return void
+     */
+    protected function setViewConfiguration(Tx_Extbase_MVC_View_ViewInterface $view) {
+        $extbaseFrameworkConfiguration =
+            $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
+
+        // fetch the current controller action which is set in the news plugin
+        $controllerConfigurationAction = implode(";",$extbaseFrameworkConfiguration['controllerConfiguration']['News']['actions']);
+
+        parent::setViewConfiguration($view);
+
+        // check if the current controller configuration action matches with one of the event controller actions
+        foreach($GLOBALS['TYPO3_CONF_VARS']['EXT']['news']['switchableControllerActions']['newItems'] as $switchableControllerActions => $value) {
+            $action = str_replace('News->', '', $switchableControllerActions);
+
+            if($action == $controllerConfigurationAction) {
+                // the current controller configuration action matches with one of the event controller actions: set event view configuration
+                $this->setEventViewConfiguration($view);
+            }
+        }
+    }
+
+    /**
+     * Override templateRootPath, layoutRootPath and/or partialRootPath of the news view with event specific settings
+     *
+     * @param Tx_Extbase_MVC_View_ViewInterface $view
+     * @param array $extbaseFrameworkConfiguration
+     * @return void
+     */
+    protected function setEventViewConfiguration(Tx_Extbase_MVC_View_ViewInterface $view) {
+        $extbaseFrameworkConfiguration =
+            $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
+
+        if (isset($extbaseFrameworkConfiguration['view']['event']['templateRootPath'])
+            && strlen($extbaseFrameworkConfiguration['view']['event']['templateRootPath']) > 0
+            && method_exists($view, 'setTemplateRootPath')) {
+            $view->setTemplateRootPath(t3lib_div::getFileAbsFileName($extbaseFrameworkConfiguration['view']['event']['templateRootPath']));
+        }
+        if (isset($extbaseFrameworkConfiguration['view']['event']['layoutRootPath'])
+            && strlen($extbaseFrameworkConfiguration['view']['event']['layoutRootPath']) > 0
+            && method_exists($view, 'setLayoutRootPath')) {
+            $view->setLayoutRootPath(t3lib_div::getFileAbsFileName($extbaseFrameworkConfiguration['view']['event']['layoutRootPath']));
+        }
+        if (isset($extbaseFrameworkConfiguration['view']['event']['partialRootPath'])
+            && strlen($extbaseFrameworkConfiguration['view']['event']['partialRootPath']) > 0
+            && method_exists($view, 'setPartialRootPath')) {
+            $view->setPartialRootPath(t3lib_div::getFileAbsFileName($extbaseFrameworkConfiguration['view']['event']['partialRootPath']));
+        }
+    }
+
+    /**
+     * Create the demand object which define which records will get shown
+     *
+     * @param array $settings
+     * @return Tx_News_Domain_Model_NewsDemand
+     */
+    protected function createDemandObjectFromSettings($settings) {
+       $demand = parent::createDemandObjectFromSettings($settings);
+          // TODO: Limit on news items only
+       return $demand;
+    }
 
     /**
      * Create the demand object which define which records will get shown
@@ -76,6 +133,16 @@ class Tx_RoqNewsevent_Controller_EventController extends Tx_News_Controller_News
 
         return $demand;
     }
+
+    /**
+   	 * injectEventRepository
+   	 *
+   	 * @param Tx_RoqNewsevent_Domain_Repository_EventRepository $eventRepository
+   	 * @return void
+   	 */
+   	public function injectEventRepository(Tx_RoqNewsevent_Domain_Repository_EventRepository $eventRepository) {
+   		$this->eventRepository = $eventRepository;
+   	}
 
     /**
      * Render a menu by dates, e.g. years, months or dates
