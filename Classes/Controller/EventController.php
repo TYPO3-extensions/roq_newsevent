@@ -100,18 +100,6 @@ class Tx_RoqNewsevent_Controller_EventController extends Tx_News_Controller_News
      * @param array $settings
      * @return Tx_News_Domain_Model_NewsDemand
      */
-    protected function createDemandObjectFromSettings($settings) {
-       $demand = parent::createDemandObjectFromSettings($settings);
-          // TODO: Limit on news items only
-       return $demand;
-    }
-
-    /**
-     * Create the demand object which define which records will get shown
-     *
-     * @param array $settings
-     * @return Tx_News_Domain_Model_NewsDemand
-     */
     protected function eventCreateDemandObjectFromSettings($settings) {
         $demand = parent::createDemandObjectFromSettings($settings);
 
