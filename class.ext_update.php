@@ -45,8 +45,8 @@ class ext_update extends t3lib_SCbase {
         $result         = false;
 
         $result = $GLOBALS['TYPO3_DB']->exec_UPDATEquery(
-            "tx_news_domain_model_news",
-            "type='Tx_RoqNewsevent_Event'",
+            'tx_news_domain_model_news',
+            "tx_news_domain_model_news.type LIKE 'Tx_RoqNewsevent_Event'",
             array(
                 'type' => 0,
                 'tx_roqnewsevent_is_event' => 1,
@@ -69,10 +69,14 @@ class ext_update extends t3lib_SCbase {
      * @return boolean: returns true if update should be performed
      */
     function access() {
-        $result = $GLOBALS['TYPO3_DB']->exec_SELECTquery("type","tx_news_domain_model_news","type='Tx_RoqNewsevent_Event'");
+        $result = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
+            'tx_news_domain_model_news.type',
+            'tx_news_domain_model_news',
+            "tx_news_domain_model_news.type LIKE 'Tx_RoqNewsevent_Event'"
+        );
 
-        // check if news type must be updated
-        if (($result) && ($GLOBALS['TYPO3_DB']->sql_num_rows($result) > 0)) {
+        // check if there are news records which must be updated
+        if (($result !== FALSE) && ($GLOBALS['TYPO3_DB']->sql_num_rows($result) > 0)) {
             return true;
         }
 
