@@ -8,11 +8,10 @@
  * @description:    ViewHelper to render proper links for event detail view
  */
 
-define('NEWS_TYPE_DEFAULT', 0);
-define('NEWS_TYPE_URL_INTERNAL', 1);
-define('NEWS_TYPE_URL_EXTERNAL', 2);
-
 class Tx_RoqNewsevent_ViewHelpers_LinkViewHelper extends Tx_News_ViewHelpers_LinkViewHelper {
+    const NEWS_TYPE_DEFAULT         = 0;
+   	const NEWS_TYPE_URL_INTERNAL    = 1;
+   	const NEWS_TYPE_URL_EXTERNAL    = 2;
 
     /**
      * Render link to news item or internal/external pages
@@ -25,8 +24,8 @@ class Tx_RoqNewsevent_ViewHelpers_LinkViewHelper extends Tx_News_ViewHelpers_Lin
      * @return string url
      */
     public function render(Tx_News_Domain_Model_News $newsItem, array $settings = array(), $hsc = FALSE, $configuration = array(), $action = NULL) {
-        // modify link action, so that the event detail action will be used (only for normal news records)
-        if($newsItem->getType() == NEWS_TYPE_DEFAULT) {
+        // modify link action, so that the event detail action will be used (only for default news records)
+        if($newsItem->getType() == Tx_RoqNewsevent_ViewHelpers_LinkViewHelper::NEWS_TYPE_DEFAULT) {
             if($action !== NULL) {
                 $configuration['additionalParams'] .= '&tx_news_pi1[action]=' . $action;
             }
