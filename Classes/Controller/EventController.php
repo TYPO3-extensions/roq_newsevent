@@ -58,7 +58,7 @@ class Tx_RoqNewsevent_Controller_EventController extends Tx_News_Controller_News
         foreach($GLOBALS['TYPO3_CONF_VARS']['EXT']['news']['switchableControllerActions']['newItems'] as $switchableControllerActions => $value) {
             $action = str_replace('News->', '', $switchableControllerActions);
 
-            if($action == $controllerConfigurationAction) {
+            if(strpos($action,$controllerConfigurationAction) !== FALSE) {
                 // the current controller configuration action matches with one of the event controller actions: set event view configuration
                 $this->setEventViewConfiguration($view);
             }
