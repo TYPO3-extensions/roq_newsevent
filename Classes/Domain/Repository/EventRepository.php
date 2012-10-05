@@ -91,7 +91,7 @@ class Tx_RoqNewsevent_Domain_Repository_EventRepository extends Tx_News_Domain_R
                 throw new InvalidArgumentException('No Datefield is set, therefore no Datemenu is possible!');
             }
             if ($demand->getMonth() > 0) {
-                if ($demand->getDay() > 0) {
+                if (method_exists($demand, 'getDay') && ($demand->getDay() > 0)) {
                     $begin = mktime(0, 0, 0, $demand->getMonth(), $demand->getDay(), $demand->getYear());
                     $end = mktime(23, 59, 59, $demand->getMonth(), $demand->getDay(), $demand->getYear());
                 } else {
