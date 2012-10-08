@@ -1,3 +1,4 @@
+# Extbase configuration for news event controller, news event model, and database
 config.tx_extbase {
     persistence {
         classes {
@@ -29,6 +30,7 @@ config.tx_extbase {
     }
 }
 
+# Event TypoScript configuration
 plugin.tx_news {
     view {
         event {
@@ -38,7 +40,6 @@ plugin.tx_news {
 	}
 
 	settings {
-        # event configuration
     	event {
     	    orderBy = tx_roqnewsevent_startdate ASC, tx_roqnewsevent_starttime ASC
 

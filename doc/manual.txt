@@ -1,7 +1,7 @@
 ﻿News event: Events for the versatile news system
 Extension Key: roq_newsevent
 Language: en
-Version: 1.0.2 (rev. 26)
+Version: 1.0.3 (rev. 53)
 Keywords: forEditors, forAdmins, forBeginners, forIntermediates
 Copyright 2006-2012, ROQUIN B.V., <extensions@roquin.nl>
 
@@ -15,19 +15,20 @@ News event: Events for the versatile news system	1
 Introduction	3
 What does it do?	3
 Screenshots	3
-User's manual	5
-About news event records	5
-Administration	6
-Archiving	6
-RSS	6
-iCalendar (ICS)	6
-Configuration	8
-Plugin	8
-TypoScript reference	8
-Database reference	9
-Tutorial	10
-General	10
-How to add an event section to your site	10
+User's manual	4
+About news event records	4
+Administration	5
+Archiving	5
+RSS	5
+iCalendar (ICS)	5
+Configuration	7
+Plugin	7
+TypoScript reference	7
+Database reference	8
+Tutorial	9
+General	9
+How to add an event section to your site	9
+Updating from version 2.0.x	10
 Known problems	12
 To-Do list	13
 ChangeLog	14
@@ -37,9 +38,6 @@ What does it do?
 The news event extension extends the versatile news system extension with additional event functionality. The news event extension is based on Extbase and Fluid.
 Screenshots
 This section shows screenshots of the news event extension. Please note that only the settings which are applicable for the news event extension are visible.
-
-
-
 User's manual
 About news event records
 The records can be created on any page, however it is recommended to create a seperate sysfolder for news event records (next to a sysfolder in which you store your news records).
@@ -48,11 +46,11 @@ News event records
 Field:
 Description:
 Required:
-Type
-The type 'Event' has been added as an additional type to mark a news record as an event. If even has been selected an additional event tab will appear in which event information can be defined. See  Image 2.
-Yes
+Is event
+Mark a news records as an event. If this has been enabled, the news record will be recognized as an news event record.
+No
 Start date
-Start date of the event.
+Start date of the event. Note: If the start date has been left empty or undefined, the event will not be visible in the frontend.
 Yes
 Start time
 Start time of the event.
@@ -97,7 +95,7 @@ page {
 		settings {
 			format = ics
 			archiveRestriction = active
-	            	startingpoint = [sysFolderID]
+				startingpoint = [sysFolderID]
 		}
 	}
 
@@ -127,7 +125,7 @@ $TYPO3_CONF_VARS['EXTCONF']['realurl'] = array(
 	'_DEFAULT' => array(
 		'fileName' => array(
 			'defaultToHTMLsuffixOnPrev' => true,
-            	'index' => array(
+			'index' => array(
 				'eventlist.ics' => array(
 					'keyValues' => array(
 						'type' => 9828,
@@ -192,11 +190,10 @@ dateField
 
 See the news system documentation for a description of all plugin settings.
 TypoScript reference
-This section describes additional news system TypoScript settings, which are available for news events. These settings are divided into:
-General news settings, which are defined by using: plugin.tx_news.settings.<property>
-Specific event settings, which are defined by using: plugin.tx_news.settings.event<property>
+This section describes additional news system TypoScript settings, which are available for news events.
 A simple way to get to know the default settings is to look at the file EXT:roq_newsevent/Configuration/TypoScript/setup.txt
 News settings (iCal support)
+See the table below for the general news settings, used by news event, which are defined by using: plugin.tx_news.settings.<property>.
 Property:
 Data type:
 Description:
@@ -205,7 +202,9 @@ format
 string
 Set a different format for the output. Use e.g. “ics” for iCalendar “xml” or for RSS feeds.
 html
+
 News event settings
+See the table below for the specific news event settings, which are defined by using: plugin.tx_news.settings.event.<property>.
 Property:
 Data type:
 Description:
@@ -222,35 +221,55 @@ dateField
 string
 Field to use for dateMenu
 EventStartdate
+News event view settings
+See the table below for the specific news event view settings, which are defined by using: plugin.tx_news.event.view.<property>. You can override these settings if you want to use your own Fluid templates for news event.
+Property:
+Data type:
+Description:
+Default:
+templateRootPath
+dir
+Root path for the fluid templates for news event. The plugin has one controller with three actions (named “eventDateMenu”, “eventList” and “eventDetail”). Accordingly there have to be at least three fluid templates at the following locations (relative to the template root path): 
+News/EventList.html
+News/EventDetail.html
+News/EventDateMenu.html
+Additionally for ICS and RSS/XML support three additional templates also have to at the following locations (also relative to the template root path):
+News/EventList.ics
+News/EventDetail.ics
+News/EventList.xml
+EXT:roq_newsevent/Resources/Private/Templates
+partialRootPath
+dir
+Root path for the fluid partials of the plugin. The default Fluid templates use several default partials. If you override the default templates this might become irrelevant. 
+EXT:roq_newsevent/Resources/Private/Partials
+layoutRootPath
+dir
+Root path for the fluid layouts of the plugin (not used by default) 
+Undefined
 Database reference
 This section describes the news event database fields, which are added to the news table 'tx_news_domain_model_news' to store all event data.
 Additional database columns
 Property:
 Data type:
 Description:
-Required:
+tx_roqnewsevent_is_event
+tinyint(1), unsigned
+Determines if a news record is of type news event
 tx_roqnewsevent_startdate 
 int(11)
 The event start date
-Yes
 tx_roqnewsevent_starttime
 int(11)
 The event start time
-No
 tx_roqnewsevent_enddate
 int(11)
 The event end date (for multiple day events)
-No
 tx_roqnewsevent_endtime
 int(11)
 The event end time
-No
 tx_roqnewsevent_location
 varchar(255)
 The location of the event
-No
-
-
 
 Tutorial
 General
@@ -269,16 +288,15 @@ Be aware that before any plugin can be rendered in the frontend it is necessary 
 
 Important: make sure that you include the news event static template after the news system static template!
 Create news event records
-Before any news events can be shown in the frontend they must be created by adding news event records:
+Before any news events can be shown in the front-end they must be created by adding news event records:
 1. Therefore, create a new sysfolder and switch to the list view (it is preferable to create a seperate sysfolder for news event records next to your news records to keep your records organized)
 2. Optionally you can create a seperate news category for news events. See the news system documentation for more information.
 3. Use the icon in the topbar “Create new record” and search for “News system” and its records. You should see “News”, “News category” and “News Tag”.  Click on “News”  to create a new news record. 
-4. Select 'Event' within the selectbox below 'Type' (see: Image 2), and click on 'Ok' when the pop-up box appears (with the message: “This change will affect which fields...”). An additional tab, called 'Event' will appear.
-5. Click on the 'Event' tab and fill in the necessary event date information (at least an event start date, which is required)
-
+4. Click on the 'Event' tab and check the 'Is event' checkbox to mark the news record as an event (see: Image 2).
+5. Fill in the necessary event information (at least an event start date), which is required to make the event visible in the frontend. Please note that events without a start date will not be visible in the front-end.
 Add a plugin to a page
 Add a new page (for instance 'Upcoming events') to which you can add the news system plugin. See the news system documentation to read more on how to add this plugin. When you have added the plugin to the newly created page, edit the plugin settings, and:
-1. Change the 1st select box from 'What to display' to 'List view' beneath the 'Event' section in the select box.
+1. Change the 1st select box from 'What to display' to 'List view' beneath the 'Event' section in the select box (see: Image 1).
 2. Select 'Only active (non archived)' below 'Archive' to only show all current and future events. Past events will be shown if 'Archived' has been selected. You can use this on a seperate page (on which you've added the plugin as well) to create an event archive section.
 3. Point the starting point to the sysfolder pid where you have stored the news event records.
 4. Save the plugin.
@@ -289,19 +307,37 @@ Any other ViewHelper from other extensions can be used by using a namespace decl
 {namespace e=Tx_RoqNewsevent_ViewHelpers}
 
 Then ViewHelpers of EXT:RoqNewsevent (which can be found in roq_newsevent/Classes/ViewHelpers) can be used with the prefix e:.
-
+Updating from version 2.0.x
+Please read this section carefully, if you already have news event version 2.0.x installed, and want to update to version 2.1.x of news event. 
+What has been changed?
+Earlier, with version 2.0.x, news event added a new news type called 'Event', as show below:
+This type has been removed, and replaced with a checkbox 'Is event' in the event tab from versions 2.1.0. Because of this, the news types 'External Page' and 'Internal Page', also can be used for events. This was not possible in the way we handled events in previous versions.
+Ok, but what does this mean?
+This means that the way news event records are stored has been changed. Because of this, you need to update older news events records to the new format after performing the update, by running the update script. Otherwise the older records will not be recognized as news event records.
+Update and running the update script
+1. First, update the news event extension to the latest version by using the TYPO3 'Extension Manager' like you normally would do.
+2. After you've successfully performed the update, go to the “Loaded extensions” list in the TYPO3 “Extension Manager”, and click on the News event extension.
+3. Click on the Extension manager selectbox on the top, and check if the item 'UPDATE!' is available from the selectbox in the top, as shown in the image below:
+4. If this option is not available, you've already performed this update or there are no news records available which must be updated.
+5. Finally, click on 'UPDATE!' to update all old news event database records. From now all older news event records are converted to the newer format. Please note: The 'UPDATE!' option will disappear when the update has performed successfully.
 Known problems
 Please let me know if you have any suggestions, tips, or questions about the news event extension. Further progress, and other information can be found at TYPO3 forge: http://forge.typo3.org/projects/extension-roq_newsevent.
 The bugtracker at http://forge.typo3.org/projects/extension-roq_newsevent/issues holds all known bugs of the news event extension. 
 If you think you have found a bug, please report (if not already done) at TYPO3 forge and attach at least those information to make it as easy as possible to resolve it:
 Understandable title & description: Please use English and include how the bug can be reproduced
-Version of: TYPO3, news system version, and news event
-If possible an attached patch would be very nice!
+Version of: TYPO3, News system extension, and News event extension
+If possible: an attached patch would be very nice!
 To-Do list
 See the roadmap section on Forge: http://forge.typo3.org/projects/extension-roq_newsevent/roadmap.
 ChangeLog
 Version
 Changes:
+2.1.0
+Changed 'Event' type to an 'Is event' checkbox to also support the 'Internal Page' and 'External Page' news types for events. 
+Added support for news event specific templates paths 
+Lowered version dependency of News from 1.4.0 to 1.3.2 due to issue #40303
+
+Important: Please run the update script when updating from previous versions of news event! See the manual (section: Updating news event from version 2.0.x) or the wiki on TYPO3 Forge for instructions.
 2.0.2
 Fixed bug #41042 and updated contact details 
 2.0.1
