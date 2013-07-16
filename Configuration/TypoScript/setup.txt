@@ -41,6 +41,7 @@ plugin.tx_news {
 
 	settings {
     	event {
+    	    orderByAllowed = tx_roqnewsevent_startdate,tx_roqnewsevent_starttime
     	    orderBy = tx_roqnewsevent_startdate ASC, tx_roqnewsevent_starttime ASC
 
     	    archived {

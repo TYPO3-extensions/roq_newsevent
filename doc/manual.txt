@@ -1,7 +1,7 @@
-ÔªøNews event: Events for the versatile news system
+News event: Events for the versatile news system
 Extension Key: roq_newsevent
 Language: en
-Version: 1.0.3 (rev. 53)
+Version: 1.0.4 (rev. 57)
 Keywords: forEditors, forAdmins, forBeginners, forIntermediates
 Copyright 2006-2012, ROQUIN B.V., <extensions@roquin.nl>
 
@@ -67,7 +67,7 @@ No
 
 Administration
 Archiving
-News records are archived by using the archive date restriction or time restriction settings. These settings are not used for news events records, and archiving for events works a bit differently. Events which are current or will occur in the future (based on the event data) are known as 'active', and all past events are known as 'archived'. You must select either 'active' or 'archived' when configuring an added news plugin for news events. See the section Configuration ‚Üí Plugin for more information.
+News records are archived by using the archive date restriction or time restriction settings. These settings are not used for news events records, and archiving for events works a bit differently. Events which are current or will occur in the future (based on the event data) are known as 'active', and all past events are known as 'archived'. You must select either 'active' or 'archived' when configuring an added news plugin for news events. See the section Configuration ? Plugin for more information.
 RSS
 News event supports RSS feeds, which is handled like an event list view plugin. You can create an RSS feed exactly the same as adding an RSS feed for News. See the manual for the news system extension for more information. The default template for the output is stored in: Resources/Private/Templates/News/EventList.xml. 
 The xml file type is achieved by setting:
@@ -200,7 +200,7 @@ Description:
 Default:
 format
 string
-Set a different format for the output. Use e.g. ‚Äúics‚Äù for iCalendar ‚Äúxml‚Äù or for RSS feeds.
+Set a different format for the output. Use e.g. ìicsî for iCalendar ìxmlî or for RSS feeds.
 html
 
 News event settings
@@ -209,6 +209,11 @@ Property:
 Data type:
 Description:
 Default:
+orderByAllowed
+string
+List of fields, which are allowed for sorting. This setting appends the plugin.tx_news.settings.orderByAllowed setting
+tx_roqnewsevent_startdate,
+tx_roqnewsevent_starttime
 orderBy
 string
 Field ordering, which is used to sort event records
@@ -229,7 +234,7 @@ Description:
 Default:
 templateRootPath
 dir
-Root path for the fluid templates for news event. The plugin has one controller with three actions (named ‚ÄúeventDateMenu‚Äù, ‚ÄúeventList‚Äù and ‚ÄúeventDetail‚Äù). Accordingly there have to be at least three fluid templates at the following locations (relative to the template root path): 
+Root path for the fluid templates for news event. The plugin has one controller with three actions (named ìeventDateMenuî, ìeventListî and ìeventDetailî). Accordingly there have to be at least three fluid templates at the following locations (relative to the template root path): 
 News/EventList.html
 News/EventDetail.html
 News/EventDateMenu.html
@@ -279,19 +284,19 @@ This section describes how to implement the extension news event in your TYPO3 i
 Installation
 Before you can install this extension, please make sure the news system extension (including the system extensions: Extbase and Fluid) has been installed. See the news system documentation for more information.
 After the installation of the news system you can install the news event extension in the same way:
-1. Switch to the module ‚ÄúExtension Manager‚Äù.
+1. Switch to the module ìExtension Managerî.
 2. Get the extension from the Extension Manager (TER)
 Preparation: Include static TypoScript
 Be aware that before any plugin can be rendered in the frontend it is necessary to include the static TypoScript of news event. This is very easy:
 1. Switch to the template module and to the your template record.
-2. Add the news extension to the ‚ÄúInclude Static‚Äù list.
+2. Add the news extension to the ìInclude Staticî list.
 
 Important: make sure that you include the news event static template after the news system static template!
 Create news event records
 Before any news events can be shown in the front-end they must be created by adding news event records:
 1. Therefore, create a new sysfolder and switch to the list view (it is preferable to create a seperate sysfolder for news event records next to your news records to keep your records organized)
 2. Optionally you can create a seperate news category for news events. See the news system documentation for more information.
-3. Use the icon in the topbar ‚ÄúCreate new record‚Äù and search for ‚ÄúNews system‚Äù and its records. You should see ‚ÄúNews‚Äù, ‚ÄúNews category‚Äù and ‚ÄúNews Tag‚Äù.  Click on ‚ÄúNews‚Äù  to create a new news record. 
+3. Use the icon in the topbar ìCreate new recordî and search for ìNews systemî and its records. You should see ìNewsî, ìNews categoryî and ìNews Tagî.  Click on ìNewsî  to create a new news record. 
 4. Click on the 'Event' tab and check the 'Is event' checkbox to mark the news record as an event (see: Image 2).
 5. Fill in the necessary event information (at least an event start date), which is required to make the event visible in the frontend. Please note that events without a start date will not be visible in the front-end.
 Add a plugin to a page
@@ -316,7 +321,7 @@ Ok, but what does this mean?
 This means that the way news event records are stored has been changed. Because of this, you need to update older news events records to the new format after performing the update, by running the update script. Otherwise the older records will not be recognized as news event records.
 Update and running the update script
 1. First, update the news event extension to the latest version by using the TYPO3 'Extension Manager' like you normally would do.
-2. After you've successfully performed the update, go to the ‚ÄúLoaded extensions‚Äù list in the TYPO3 ‚ÄúExtension Manager‚Äù, and click on the News event extension.
+2. After you've successfully performed the update, go to the ìLoaded extensionsî list in the TYPO3 ìExtension Managerî, and click on the News event extension.
 3. Click on the Extension manager selectbox on the top, and check if the item 'UPDATE!' is available from the selectbox in the top, as shown in the image below:
 4. If this option is not available, you've already performed this update or there are no news records available which must be updated.
 5. Finally, click on 'UPDATE!' to update all old news event database records. From now all older news event records are converted to the newer format. Please note: The 'UPDATE!' option will disappear when the update has performed successfully.
@@ -332,6 +337,9 @@ See the roadmap section on Forge: http://forge.typo3.org/projects/extension-roq_
 ChangeLog
 Version
 Changes:
+2.1.1
+Fixed bug #49651 due to TYPO3 6.1 compatibility (thanks to Sascha Treiber)
+Implemented suggestion #45882 (thanks to Georg Ringer)
 2.1.0
 Changed 'Event' type to an 'Is event' checkbox to also support the 'Internal Page' and 'External Page' news types for events. 
 Added support for news event specific templates paths 
@@ -343,5 +351,5 @@ Fixed bug #41042 and updated contact details
 2.0.1
 Native support for more languages, and some minor fixes 
 2.0.0
-Initial version
+Initial (public) version
 

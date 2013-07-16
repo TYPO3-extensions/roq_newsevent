@@ -102,8 +102,20 @@ class Tx_RoqNewsevent_Controller_EventController extends Tx_News_Controller_News
      */
     protected function eventCreateDemandObjectFromSettings($settings) {
         $demand = parent::createDemandObjectFromSettings($settings);
+        $orderByAllowed = $demand->getOrderByAllowed();
+
+        if(sizeof($orderByAllowed) > 0) {
+            $orderByAllowed .= ',';
+        }
 
         // set ordering
+        if($settings['event']['orderByAllowed']) {
+            $demand->setOrderByAllowed($orderByAllowed . str_replace(' ','',$settings['event']['orderByAllowed']));
+        } else {
+            // default orderByAllowed list
+            $demand->setOrderByAllowed($orderByAllowed . 'tx_roqnewsevent_startdate,tx_roqnewsevent_starttime');
+        }
+
         if($demand->getArchiveRestriction() == 'archived') {
             if ($settings['event']['archived']['orderBy']) {
                 $demand->setOrder($settings['event']['archived']['orderBy']);
@@ -166,6 +178,9 @@ class Tx_RoqNewsevent_Controller_EventController extends Tx_News_Controller_News
     public function eventListAction(array $overwriteDemand = NULL) {
         $this->settings = $this->initializeSettings($this->settings);
         $demand = $this->eventCreateDemandObjectFromSettings($this->settings);
+
+        //var_dump($demand);
+        //die('help');
 
         if ($this->settings['disableOverrideDemand'] != 1 && $overwriteDemand !== NULL) {
             $demand = $this->overwriteDemandObject($demand, $overwriteDemand);
