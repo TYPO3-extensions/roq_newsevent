@@ -1,7 +1,7 @@
 News event: Events for the versatile news system
 Extension Key: roq_newsevent
 Language: en
-Version: 1.0.4 (rev. 57)
+Version: 1.0.5 (rev. 59)
 Keywords: forEditors, forAdmins, forBeginners, forIntermediates
 Copyright 2006-2012, ROQUIN B.V., <extensions@roquin.nl>
 
@@ -227,7 +227,7 @@ string
 Field to use for dateMenu
 EventStartdate
 News event view settings
-See the table below for the specific news event view settings, which are defined by using: plugin.tx_news.event.view.<property>. You can override these settings if you want to use your own Fluid templates for news event.
+See the table below for the specific news event view settings, which are defined by using: plugin.tx_news.view.event.<property>. You can override these settings if you want to use your own Fluid templates for news event.
 Property:
 Data type:
 Description:
