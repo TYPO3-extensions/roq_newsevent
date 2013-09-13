@@ -23,22 +23,22 @@ class Tx_RoqNewsevent_Domain_Repository_EventRepository extends Tx_News_Domain_R
      */
     protected function createIsActiveConstraint(Tx_Extbase_Persistence_QueryInterface $query) {
         /** @var $constraint Tx_Extbase_Persistence_QOM_Constraint */
-        $constraint = null;
+        $constraint = NULL;
         $timestamp  = time(); // + date('Z');
 
         $constraint = $query->logicalOr(
             // future events:
-            $query->greaterThan('tx_roqnewsevent_startdate + tx_roqnewsevent_starttime',$timestamp),
+            $query->greaterThan('tx_roqnewsevent_startdate + tx_roqnewsevent_starttime', $timestamp),
             // current multiple day events:
             $query->logicalAnd(
-                $query->lessThan('tx_roqnewsevent_startdate + tx_roqnewsevent_starttime',$timestamp),
-                $query->greaterThan('tx_roqnewsevent_enddate + tx_roqnewsevent_endtime',$timestamp)
+                $query->lessThan('tx_roqnewsevent_startdate + tx_roqnewsevent_starttime', $timestamp),
+                $query->greaterThan('tx_roqnewsevent_enddate + tx_roqnewsevent_endtime', $timestamp)
             ),
             // current single day events:
             $query->logicalAnd(
-                $query->lessThan('tx_roqnewsevent_startdate + tx_roqnewsevent_starttime',$timestamp),
-                $query->greaterThan('tx_roqnewsevent_startdate + tx_roqnewsevent_endtime',$timestamp),
-                $query->equals('tx_roqnewsevent_enddate',0)
+                $query->lessThan('tx_roqnewsevent_startdate + tx_roqnewsevent_starttime', $timestamp),
+                $query->greaterThan('tx_roqnewsevent_startdate + tx_roqnewsevent_endtime', $timestamp),
+                $query->equals('tx_roqnewsevent_enddate', 0)
             )
         );
 
@@ -57,11 +57,11 @@ class Tx_RoqNewsevent_Domain_Repository_EventRepository extends Tx_News_Domain_R
 
         if ($demand->getCategories() && $demand->getCategories() !== '0') {
             $constraints[] = $this->createCategoryConstraint(
-                                        $query,
-                                        $demand->getCategories(),
-                                        $demand->getCategoryConjunction(),
-                                        $demand->getIncludeSubCategories()
-                    );
+                $query,
+                $demand->getCategories(),
+                $demand->getCategoryConjunction(),
+                $demand->getIncludeSubCategories()
+            );
         }
 
             // archived
@@ -140,12 +140,12 @@ class Tx_RoqNewsevent_Domain_Repository_EventRepository extends Tx_News_Domain_R
         }
 
             // events only
-        $constraints[] = $query->logicalAnd($query->equals('tx_roqnewsevent_is_event',1));
+        $constraints[] = $query->logicalAnd($query->equals('tx_roqnewsevent_is_event', 1));
 
             // the event must have an event start date
         $constraints[] = $query->logicalAnd(
             $query->logicalNot(
-                $query->equals('tx_roqnewsevent_startdate',0)
+                $query->equals('tx_roqnewsevent_startdate', 0)
             )
         );
 

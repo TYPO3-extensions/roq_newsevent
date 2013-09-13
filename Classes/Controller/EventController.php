@@ -50,7 +50,7 @@ class Tx_RoqNewsevent_Controller_EventController extends Tx_News_Controller_News
             $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 
         // Fetch the current controller action which is set in the news plugin
-        $controllerConfigurationAction = implode(";",$extbaseFrameworkConfiguration['controllerConfiguration']['News']['actions']);
+        $controllerConfigurationAction = implode(';', $extbaseFrameworkConfiguration['controllerConfiguration']['News']['actions']);
 
         parent::setViewConfiguration($view);
 
@@ -58,7 +58,7 @@ class Tx_RoqNewsevent_Controller_EventController extends Tx_News_Controller_News
         foreach($GLOBALS['TYPO3_CONF_VARS']['EXT']['news']['switchableControllerActions']['newItems'] as $switchableControllerActions => $value) {
             $action = str_replace('News->', '', $switchableControllerActions);
 
-            if(strpos($action,$controllerConfigurationAction) !== FALSE) {
+            if(strpos($action, $controllerConfigurationAction) !== FALSE) {
                 // the current controller configuration action matches with one of the event controller actions: set event view configuration
                 $this->setEventViewConfiguration($view);
             }
@@ -110,7 +110,7 @@ class Tx_RoqNewsevent_Controller_EventController extends Tx_News_Controller_News
 
         // set ordering
         if($settings['event']['orderByAllowed']) {
-            $demand->setOrderByAllowed($orderByAllowed . str_replace(' ','',$settings['event']['orderByAllowed']));
+            $demand->setOrderByAllowed($orderByAllowed . str_replace(' ', '', $settings['event']['orderByAllowed']));
         } else {
             // default orderByAllowed list
             $demand->setOrderByAllowed($orderByAllowed . 'tx_roqnewsevent_startdate,tx_roqnewsevent_starttime');

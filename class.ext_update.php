@@ -15,7 +15,7 @@ class ext_update extends t3lib_SCbase {
      *
      * @return string: HTML to display
      */
-    function main() {
+    public function main() {
         $affectedRows   = 0;
         $errorMessage   = '';
         $this->content  = '';
@@ -24,9 +24,9 @@ class ext_update extends t3lib_SCbase {
         $this->doc->backPath = $GLOBALS['BACK_PATH'];
 
         if($this->updateNewsEventRecords($errorMessage, $affectedRows) == 0) {
-            $this->content .= $this->doc->section('','The update has been performed successfully: ' . $affectedRows . " row(s) affected.");
+            $this->content .= $this->doc->section('', 'The update has been performed successfully: ' . $affectedRows . ' row(s) affected.');
         } else {
-            $this->content .= $this->doc->section('','An error occurred while preforming updates. Error: ' . $errorMessage);
+            $this->content .= $this->doc->section('', 'An error occurred while preforming updates. Error: ' . $errorMessage);
         }
 
         return $this->content;
@@ -42,7 +42,7 @@ class ext_update extends t3lib_SCbase {
     protected function updateNewsEventRecords(&$errorMessage, &$affectedRows) {
         $errorCode      = 0;
         $affectedRows   = 0;
-        $result         = false;
+        $result         = FALSE;
 
         $result = $GLOBALS['TYPO3_DB']->exec_UPDATEquery(
             'tx_news_domain_model_news',
@@ -68,7 +68,7 @@ class ext_update extends t3lib_SCbase {
      *
      * @return boolean: returns true if update should be performed
      */
-    function access() {
+    public function access() {
         $result = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
             'tx_news_domain_model_news.type',
             'tx_news_domain_model_news',
@@ -77,10 +77,10 @@ class ext_update extends t3lib_SCbase {
 
         // check if there are news records which must be updated
         if (($result !== FALSE) && ($GLOBALS['TYPO3_DB']->sql_num_rows($result) > 0)) {
-            return true;
+            return TRUE;
         }
 
-        return false;
+        return FALSE;
     }
 }
 
