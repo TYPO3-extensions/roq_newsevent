@@ -177,10 +177,7 @@ class Tx_RoqNewsevent_Controller_EventController extends Tx_News_Controller_News
      */
     public function eventListAction(array $overwriteDemand = NULL) {
         $this->settings = $this->initializeSettings($this->settings);
-        $demand = $this->eventCreateDemandObjectFromSettings($this->settings);
-
-        //var_dump($demand);
-        //die('help');
+            $demand = $this->eventCreateDemandObjectFromSettings($this->settings);
 
         if ($this->settings['disableOverrideDemand'] != 1 && $overwriteDemand !== NULL) {
             $demand = $this->overwriteDemandObject($demand, $overwriteDemand);

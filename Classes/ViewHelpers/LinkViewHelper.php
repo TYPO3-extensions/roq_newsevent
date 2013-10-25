@@ -17,27 +17,27 @@ class Tx_RoqNewsevent_ViewHelpers_LinkViewHelper extends Tx_News_ViewHelpers_Lin
      * Render link to news item or internal/external pages
      *
      * @param Tx_News_Domain_Model_News $newsItem
-     * @param array $settings
-     * @param boolean $hsc add htmlspecialchars() at the end
+     * @param array optional $settings
+     * @param boolean $uriOnly optional return only the url without the a-tag
      * @param array $configuration optional typolink configuration
      * @param string $action optional typolink additional action
-     * @return string url
+     * @return string $link
      */
-    public function render(Tx_News_Domain_Model_News $newsItem, array $settings = array(), $hsc = FALSE, $configuration = array(), $action = NULL) {
+    public function render(Tx_RoqNewsevent_Domain_Model_Event $newsItem, array $settings = array(), $uriOnly = FALSE, $configuration = array(), $action = NULL) {
         // modify link action, so that the event detail action will be used (only for default news records)
         if($newsItem->getType() == Tx_RoqNewsevent_ViewHelpers_LinkViewHelper::NEWS_TYPE_DEFAULT) {
             if($action !== NULL) {
                 $configuration['additionalParams'] .= '&tx_news_pi1[action]=' . $action;
             }
 
-            $link = parent::render($newsItem, $settings, $hsc, $configuration);
+            $link = parent::render($newsItem, $settings, $uriOnly, $configuration);
 
             // ignore the getDynamicGetVarsManipulation settings, which can cause the action to be added hardcoded (which is only applicable for news only items)
             if(stristr($link, urlencode('tx_news_pi1[action]') . '=detail') !== FALSE) {
                 $link = str_replace(urlencode('tx_news_pi1[action]') . '=detail', urlencode('tx_news_pi1[action]') . '=' . $action, $link);
             }
         } else {
-            $link = parent::render($newsItem, $settings, $hsc, $configuration);
+            $link = parent::render($newsItem, $settings, $uriOnly, $configuration);
         }
 
         return $link;
