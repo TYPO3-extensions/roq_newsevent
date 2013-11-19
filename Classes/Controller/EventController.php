@@ -202,13 +202,23 @@ class Tx_RoqNewsevent_Controller_EventController extends Tx_News_Controller_News
         $this->settings = $this->initializeSettings($this->settings);
 
         if (is_null($event)) {
-            $previewNewsId = ((int)$this->settings['singleNews'] > 0) ? $this->settings['singleNews'] : $this->request->getArgument('news');
+            if ((int)$this->settings['singleNews'] > 0) {
+                $previewNewsId = $this->settings['singleNews'];
+            } elseif ($this->request->hasArgument('news_preview')) {
+                $previewNewsId = $this->request->getArgument('news_preview');;
+            } else {
+                $previewNewsId = $this->request->getArgument('news');
+            }
 
             if ($this->settings['previewHiddenRecords']) {
                 $event = $this->eventRepository->findByUid($previewNewsId, FALSE);
             } else {
                 $event = $this->eventRepository->findByUid($previewNewsId);
             }
+        }
+
+        if (is_null($event) && isset($this->settings['detail']['errorHandling'])) {
+            $this->handleNoNewsFoundError($this->settings['detail']['errorHandling']);
         }
 
         $this->view->assignMultiple(array(
@@ -218,6 +228,6 @@ class Tx_RoqNewsevent_Controller_EventController extends Tx_News_Controller_News
 
         Tx_News_Utility_Page::setRegisterProperties($this->settings['detail']['registerProperties'], $event);
     }
-
 }
+
 ?>
