@@ -1,7 +1,7 @@
 News event: Events for the versatile news system
 Extension Key: roq_newsevent
 Language: en
-Version: 1.0.5 (rev. 59)
+Version: 1.0.6 (rev. 60)
 Keywords: forEditors, forAdmins, forBeginners, forIntermediates
 Copyright 2006-2012, ROQUIN B.V., <extensions@roquin.nl>
 
@@ -29,9 +29,10 @@ Tutorial	9
 General	9
 How to add an event section to your site	9
 Updating from version 2.0.x	10
-Known problems	12
-To-Do list	13
-ChangeLog	14
+Updating from version 2.1.2 to 2.1.3	12
+Known problems	13
+To-Do list	14
+ChangeLog	15
 
 Introduction
 What does it do?
@@ -226,6 +227,18 @@ dateField
 string
 Field to use for dateMenu
 EventStartdate
+startingpoint
+string
+Page id of the event sysfolder
+plugin.tx_news.settings.startingpoint
+detailPid
+string
+Page id of the event detail view
+plugin.tx_news.settings.detailPid
+backPid
+string
+Page id for the event detail view to return to
+plugin.tx_news.settings.backPid
 News event view settings
 See the table below for the specific news event view settings, which are defined by using: plugin.tx_news.view.event.<property>. You can override these settings if you want to use your own Fluid templates for news event.
 Property:
@@ -324,7 +337,27 @@ Update and running the update script
 2. After you've successfully performed the update, go to the “Loaded extensions” list in the TYPO3 “Extension Manager”, and click on the News event extension.
 3. Click on the Extension manager selectbox on the top, and check if the item 'UPDATE!' is available from the selectbox in the top, as shown in the image below:
 4. If this option is not available, you've already performed this update or there are no news records available which must be updated.
-5. Finally, click on 'UPDATE!' to update all old news event database records. From now all older news event records are converted to the newer format. Please note: The 'UPDATE!' option will disappear when the update has performed successfully.
+1. Finally, click on 'UPDATE!' to update all old news event database records. From now all older news event records are converted to the newer format. Please note: The 'UPDATE!' option will disappear when the update has performed successfully.
+
+
+Updating from version 2.1.2 to 2.1.3
+Please read this section carefully, if you already have news event version 2.1.2 installed, and want to update to version 2.1.3 of news event.
+What has been changed?
+The link view helper for linking the event to the event detail page.
+Ok, but what does this mean?
+You only have to change the link view helper in the fluid template. First you need to remove all the action arguments in the fluid templates for the e:link tag. So change:
+<e:link newsItem="{newsItem}" settings="{settings}" action="eventDetail">
+Into:
+<e:link newsItem="{newsItem}" settings="{settings}">
+For the fluid templates:
+/Partials/EventList/Item.html
+/Templates/News/EventDetail.html
+
+And finally you have to change in the /Templates/News/Eventlist.xml the n:link into an e:link. So change:
+<n:link newsItem="{newsItem}" settings="{settings}" configuration="{returnLast:'url'}" hsc="TRUE"></n:link>
+Into:
+<e:link newsItem="{newsItem}" settings="{settings}" configuration="{returnLast:'url'}" hsc="TRUE"></e:link>
+
 Known problems
 Please let me know if you have any suggestions, tips, or questions about the news event extension. Further progress, and other information can be found at TYPO3 forge: http://forge.typo3.org/projects/extension-roq_newsevent.
 The bugtracker at http://forge.typo3.org/projects/extension-roq_newsevent/issues holds all known bugs of the news event extension. 
@@ -335,21 +368,4 @@ If possible: an attached patch would be very nice!
 To-Do list
 See the roadmap section on Forge: http://forge.typo3.org/projects/extension-roq_newsevent/roadmap.
 ChangeLog
-Version
-Changes:
-2.1.1
-Fixed bug #49651 due to TYPO3 6.1 compatibility (thanks to Sascha Treiber)
-Implemented suggestion #45882 (thanks to Georg Ringer)
-2.1.0
-Changed 'Event' type to an 'Is event' checkbox to also support the 'Internal Page' and 'External Page' news types for events. 
-Added support for news event specific templates paths 
-Lowered version dependency of News from 1.4.0 to 1.3.2 due to issue #40303
-
-Important: Please run the update script when updating from previous versions of news event! See the manual (section: Updating news event from version 2.0.x) or the wiki on TYPO3 Forge for instructions.
-2.0.2
-Fixed bug #41042 and updated contact details 
-2.0.1
-Native support for more languages, and some minor fixes 
-2.0.0
-Initial (public) version
-
+See the Wiki section on Forge for Release notes: http://forge.typo3.org/projects/extension-roq_newsevent/wiki.

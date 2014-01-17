@@ -8,7 +8,7 @@
 	<!-- header -->
 	<div class="header">
 		<h3>
-			<e:link newsItem="{newsItem}" settings="{settings}" action="eventDetail">
+			<e:link newsItem="{newsItem}" settings="{settings}">
 				{newsItem.title}
 			</e:link>
 		</h3>
@@ -18,7 +18,7 @@
 		<!-- media preview element -->
 		<f:then>
 		<div class="news-img-wrap">
-			<e:link newsItem="{newsItem}" settings="{settings}" action="eventDetail">
+			<e:link newsItem="{newsItem}" settings="{settings}">
 				<f:if condition="{newsItem.mediaPreviews}">
 					<f:then>
 						<f:alias map="{mediaElement: newsItem.mediaPreviews.0}">
@@ -65,7 +65,7 @@
 			<f:if condition="{settings.displayDummyIfNoMedia}">
 				<f:then>
 					<div class="news-img-wrap">
-						<e:link newsItem="{newsItem}" settings="{settings}" action="eventDetail">
+						<e:link newsItem="{newsItem}" settings="{settings}">
 							<span class="no-media-element">
 								<f:image
 									src="typo3conf/ext/news/Resources/Public/Images/dummy-preview-image.png"

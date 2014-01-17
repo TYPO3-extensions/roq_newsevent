@@ -132,6 +132,10 @@ class Tx_RoqNewsevent_Controller_EventController extends Tx_News_Controller_News
             }
         }
 
+        if($settings['event']['startingpoint']) {
+            $demand->setStoragePage(Tx_News_Utility_Page::extendPidListByChildren($settings['event']['startingpoint'], $settings['recursive']));
+        }
+
         return $demand;
     }
 
