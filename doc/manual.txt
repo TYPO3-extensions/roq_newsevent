@@ -1,7 +1,7 @@
 News event: Events for the versatile news system
 Extension Key: roq_newsevent
 Language: en
-Version: 1.0.6 (rev. 62)
+Version: 1.0.6 (rev. 65)
 Keywords: forEditors, forAdmins, forBeginners, forIntermediates
 Copyright 2006-2012, ROQUIN B.V., <extensions@roquin.nl>
 
@@ -24,15 +24,15 @@ iCalendar (ICS)	5
 Configuration	7
 Plugin	7
 TypoScript reference	7
-Database reference	9
-Tutorial	11
-General	11
-How to add an event section to your site	11
-Updating from version 2.0.x	12
-Updating to version 2.1.3	14
-Known problems	15
-To-Do list	16
-ChangeLog	17
+Database reference	8
+Tutorial	9
+General	9
+How to add an event section to your site	9
+Updating from version 2.0.x	10
+Updating to version 2.1.3	12
+Known problems	13
+To-Do list	14
+ChangeLog	15
 
 Introduction
 What does it do?
@@ -338,10 +338,11 @@ Update and running the update script
 3. Click on the Extension manager selectbox on the top, and check if the item 'UPDATE!' is available from the selectbox in the top, as shown in the image below:
 4. If this option is not available, you've already performed this update or there are no news records available which must be updated.
 1. Finally, click on 'UPDATE!' to update all old news event database records. From now all older news event records are converted to the newer format. Please note: The 'UPDATE!' option will disappear when the update has performed successfully.
+
 Updating to version 2.1.3
 In version 2.1.3 the default templates have been modified. So if you've modified these templates (or a copy of them), please check this section to update your templates with these changes.
 What has been changed?
-The link view helper for linking the event to the event detail page. The action argument has been removed.
+The link view helper for linking the event to the event detail page. The action argument has been removed. This can result in this error if you are using older templates: “Argument "action" was not registered. ”.
 Ok, but what does this mean?
 You have to remove the action argument from the link view helper in the following fluid templates:
 Event list item partial, default location: /Partials/EventList/Item.html
