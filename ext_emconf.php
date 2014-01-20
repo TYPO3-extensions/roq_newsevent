@@ -3,7 +3,7 @@
 /***************************************************************
  * Extension Manager/Repository config file for ext "roq_newsevent".
  *
- * Auto generated 16-01-2014 10:38
+ * Auto generated 20-01-2014 16:02
  *
  * Manual updates:
  * Only the data in the array - everything else is removed by next
@@ -15,8 +15,8 @@ $EM_CONF[$_EXTKEY] = array (
 	'description' => 'Event extension based on the versatile news system extension and Extbase & Fluid. Supplies additional event functionality to news records.',
 	'category' => 'plugin',
 	'shy' => 0,
-	'version' => '2.1.2',
-	'dependencies' => '',
+	'version' => '2.1.3',
+	'dependencies' => 'extbase,fluid,news',
 	'conflicts' => '',
 	'priority' => '',
 	'loadOrder' => '',
@@ -47,6 +47,9 @@ $EM_CONF[$_EXTKEY] = array (
 		'suggests' => 
 		array (
 		),
+	),
+	'suggests' => 
+	array (
 	),
 );
 
