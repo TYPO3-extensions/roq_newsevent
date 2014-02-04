@@ -28,14 +28,14 @@
         </languageKey>
 
         <languageKey index="de" type="array">
-            <label index="tx_roqnewsevent_domain_model_event">Event</label>
-            <label index="tx_roqnewsevent_is_event">Ist eine event</label>
+            <label index="tx_roqnewsevent_domain_model_event">Veranstaltungs-Infos</label>
+            <label index="tx_roqnewsevent_is_event">Ist eine Veranstaltung</label>
             <label index="tx_roqnewsevent_startdate">Startdatum</label>
             <label index="tx_roqnewsevent_starttime">Startzeit</label>
             <label index="tx_roqnewsevent_enddate">Enddatum</label>
             <label index="tx_roqnewsevent_endtime">Endzeit</label>
             <label index="tx_roqnewsevent_location">Ort</label>
-            <label index="tx_news_domain_model_news.tx_extbase_type.Tx_RoqNewsevent_Event">Event</label>
+            <label index="tx_news_domain_model_news.tx_extbase_type.Tx_RoqNewsevent_Event">Veranstaltung</label>
         </languageKey>
 
         <languageKey index="fr" type="array">
