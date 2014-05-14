@@ -189,6 +189,8 @@ class Tx_RoqNewsevent_Controller_EventController extends Tx_News_Controller_News
 
         $newsRecords = $this->eventRepository->findDemanded($demand);
 
+        //$this->view->setTemplatePathAndFilename('/var/www/sites/jochem/typo62.lan/html/typo3conf/ext/roq_newsevent/Resources/Private/Templates/News/EventList.html');
+
         $this->view->assignMultiple(array(
             'news' => $newsRecords,
             'overwriteDemand' => $overwriteDemand,

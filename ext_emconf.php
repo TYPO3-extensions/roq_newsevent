@@ -15,7 +15,7 @@ $EM_CONF[$_EXTKEY] = array (
 	'description' => 'Event extension based on the versatile news system extension and Extbase & Fluid. Supplies additional event functionality to news records.',
 	'category' => 'plugin',
 	'shy' => 0,
-	'version' => '2.1.3',
+	'version' => '3.0.0-dev',
 	'dependencies' => 'extbase,fluid,news',
 	'conflicts' => '',
 	'priority' => '',
@@ -38,8 +38,8 @@ $EM_CONF[$_EXTKEY] = array (
 		array (
 			'extbase' => '1.3',
 			'fluid' => '1.3',
-			'typo3' => '4.5.0-6.1.99',
-			'news' => '2.0.0',
+			'typo3' => '6.2.1-6.2.99',
+			'news' => '3.0.0',
 		),
 		'conflicts' => 
 		array (
