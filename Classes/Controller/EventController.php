@@ -209,7 +209,7 @@ class Tx_RoqNewsevent_Controller_EventController extends Tx_News_Controller_News
             if ((int)$this->settings['singleNews'] > 0) {
                 $previewNewsId = $this->settings['singleNews'];
             } elseif ($this->request->hasArgument('news_preview')) {
-                $previewNewsId = $this->request->getArgument('news_preview');;
+                $previewNewsId = $this->request->getArgument('news_preview');
             } else {
                 $previewNewsId = $this->request->getArgument('news');
             }
