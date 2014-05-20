@@ -64,7 +64,11 @@ class Tx_RoqNewsevent_Domain_Repository_EventRepository extends Tx_News_Domain_R
             );
         }
 
-            // archived
+        if ($demand->getAuthor()) {
+            $constraints[] = $query->equals('author', $demand->getAuthor());
+        }
+
+        // archived
         if ($demand->getArchiveRestriction() == 'archived') {
             $constraints[] = $query->logicalNot($this->createIsActiveConstraint($query));
             // non-archived (active)
@@ -72,26 +76,75 @@ class Tx_RoqNewsevent_Domain_Repository_EventRepository extends Tx_News_Domain_R
             $constraints[] = $this->createIsActiveConstraint($query);
         }
 
-            // top news
+        // Time restriction greater than or equal
+        $timeRestrictionField = $demand->getDateField();
+        $timeRestrictionField = (empty($timeRestrictionField)) ? 'datetime' : $timeRestrictionField;
+
+        if ($demand->getTimeRestriction()) {
+            $timeLimit = 0;
+            // integer = timestamp
+            if (\TYPO3\CMS\Core\Utility\MathUtility::canBeInterpretedAsInteger($demand->getTimeRestriction())) {
+                $timeLimit = $GLOBALS['EXEC_TIME'] - $demand->getTimeRestriction();
+            } else {
+                // try to check strtotime
+                $timeFromString = strtotime($demand->getTimeRestriction());
+
+                if ($timeFromString) {
+                    $timeLimit = $timeFromString;
+                } else {
+                    throw new Exception('Time limit Low could not be resolved to an integer. Given was: ' . htmlspecialchars($timeLimit));
+                }
+            }
+
+            $constraints[] = $query->greaterThanOrEqual(
+                $timeRestrictionField,
+                $timeLimit
+            );
+        }
+
+        // Time restriction less than or equal
+        if ($demand->getTimeRestrictionHigh()) {
+            $timeLimit = 0;
+            // integer = timestamp
+            if (\TYPO3\CMS\Core\Utility\MathUtility::canBeInterpretedAsInteger($demand->getTimeRestrictionHigh())) {
+                $timeLimit = $GLOBALS['EXEC_TIME'] + $demand->getTimeRestrictionHigh();
+            } else {
+                // try to check strtotime
+                $timeFromString = strtotime($demand->getTimeRestrictionHigh());
+
+                if ($timeFromString) {
+                    $timeLimit = $timeFromString;
+                } else {
+                    throw new Exception('Time limit High could not be resolved to an integer. Given was: ' . htmlspecialchars($timeLimit));
+                }
+            }
+
+            $constraints[] = $query->lessThanOrEqual(
+                $timeRestrictionField,
+                $timeLimit
+            );
+        }
+
+        // top news
         if ($demand->getTopNewsRestriction() == 1) {
             $constraints[] = $query->equals('istopnews', 1);
         } elseif ($demand->getTopNewsRestriction() == 2) {
             $constraints[] = $query->equals('istopnews', 0);
         }
 
-            // storage page
+        // storage page
         if ($demand->getStoragePage() != 0) {
-            $pidList = t3lib_div::intExplode(',', $demand->getStoragePage(), TRUE);
-            $constraints[]  = $query->in('pid', $pidList);
+            $pidList = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $demand->getStoragePage(), TRUE);
+            $constraints[] = $query->in('pid', $pidList);
         }
 
-            // month & year OR year only
+        // month & year OR year only
         if ($demand->getYear() > 0) {
             if (is_null($demand->getDateField())) {
                 throw new InvalidArgumentException('No Datefield is set, therefore no Datemenu is possible!');
             }
             if ($demand->getMonth() > 0) {
-                if (method_exists($demand, 'getDay') && ($demand->getDay() > 0)) {
+                if ($demand->getDay() > 0) {
                     $begin = mktime(0, 0, 0, $demand->getMonth(), $demand->getDay(), $demand->getYear());
                     $end = mktime(23, 59, 59, $demand->getMonth(), $demand->getDay(), $demand->getYear());
                 } else {
@@ -103,40 +156,35 @@ class Tx_RoqNewsevent_Domain_Repository_EventRepository extends Tx_News_Domain_R
                 $end = mktime(23, 59, 59, 12, 31, $demand->getYear());
             }
             $constraints[] = $query->logicalAnd(
-                    $query->greaterThanOrEqual($demand->getDateField(), $begin),
-                    $query->lessThanOrEqual($demand->getDateField(), $end)
-                );
+                $query->greaterThanOrEqual($demand->getDateField(), $begin),
+                $query->lessThanOrEqual($demand->getDateField(), $end)
+            );
         }
 
-            // Tags
-        if ($demand->getTags()) {
-            $constraints[] = $query->contains('tags', $demand->getTags());
-        }
+        // Tags
+        $tags = $demand->getTags();
+        if ($tags) {
+            $tagList = explode(',', $tags);
 
-            // dummy records, used for UnitTests only!
-        if ($demand->getIsDummyRecord()) {
-            $constraints[] = $query->equals('isDummyRecord', 1);
-        }
-
-            // Search
-        if ($demand->getSearch() !== NULL) {
-            /* @var $searchObject Tx_News_Domain_Model_Dto_Search */
-            $searchObject = $demand->getSearch();
-
-            $searchFields = t3lib_div::trimExplode(',', $searchObject->getFields(), TRUE);
-            $searchConstraints = array();
-
-            if (count($searchFields) === 0) {
-                throw new UnexpectedValueException('No search fields defined', 1318497755);
+            foreach ($tagList as $singleTag) {
+                $constraints[] = $query->contains('tags', $singleTag);
             }
+        }
 
-            $searchSubject = $searchObject->getSubject();
-            foreach($searchFields as $field) {
-                if (!empty($searchSubject)) {
-                $searchConstraints[] = $query->like($field, '%' . $searchSubject . '%');
-                }
-            }
-            $constraints[] = $query->logicalOr($searchConstraints);
+        // Search
+        $searchConstraints = $this->getSearchConstraints($query, $demand);
+        if (!empty($searchConstraints)) {
+            $constraints[] = $query->logicalAnd($searchConstraints);
+        }
+
+        // Exclude already displayed
+        if ($demand->getExcludeAlreadyDisplayedNews() && isset($GLOBALS['EXT']['news']['alreadyDisplayed']) && !empty($GLOBALS['EXT']['news']['alreadyDisplayed'])) {
+            $constraints[] = $query->logicalNot(
+                $query->in(
+                    'uid',
+                    $GLOBALS['EXT']['news']['alreadyDisplayed']
+                )
+            );
         }
 
             // events only

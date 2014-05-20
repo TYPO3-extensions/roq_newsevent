@@ -113,7 +113,7 @@ class Tx_RoqNewsevent_ViewHelpers_Format_TimeViewHelper extends Tx_Fluid_Core_Vi
 		}
 
         $timeZoneOffset = $time->getTimezone()->getOffset($time);
-        $timeStamp      = strtotime($time->format($format));
+        $timeStamp      = $time->getTimestamp();
 
         return date($format, $timeStamp - $timeZoneOffset);
     }

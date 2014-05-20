@@ -19,7 +19,7 @@ class Tx_RoqNewsevent_ViewHelpers_Format_TrimViewHelper extends Tx_Fluid_Core_Vi
 		$content = $this->renderChildren();
 
         if($replaceDoubleSpaces) {
-            $content = preg_replace("/\s\s+/", " ", $content);
+            $content = preg_replace('/\s\s+/', ' ', $content);
         }
 
         if($trimTabs) {
