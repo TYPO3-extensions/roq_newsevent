@@ -3,7 +3,7 @@ if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'News event');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'News event');
 
 $tmp_roq_newsevent_columns = array(
 
@@ -61,12 +61,12 @@ $tmp_roq_newsevent_columns = array(
 		'config' => array(
 			'type' => 'input',
 			'size' => 30,
-			'eval' => 'trim'
+			'eval' => 'trim',
 		),
 	),
 );
 
-t3lib_extMgm::addTCAcolumns('tx_news_domain_model_news', $tmp_roq_newsevent_columns);
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('tx_news_domain_model_news', $tmp_roq_newsevent_columns);
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
 	'tx_news_domain_model_news',
