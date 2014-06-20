@@ -19,6 +19,7 @@ class Tx_RoqNewsevent_Controller_EventController extends Tx_News_Controller_News
 	 * eventRepository
 	 *
 	 * @var Tx_RoqNewsevent_Domain_Repository_EventRepository
+	 * @inject
 	 */
 	protected $eventRepository;
 
@@ -138,16 +139,6 @@ class Tx_RoqNewsevent_Controller_EventController extends Tx_News_Controller_News
 
         return $demand;
     }
-
-    /**
-   	 * injectEventRepository
-   	 *
-   	 * @param Tx_RoqNewsevent_Domain_Repository_EventRepository $eventRepository
-   	 * @return void
-   	 */
-   	public function injectEventRepository(Tx_RoqNewsevent_Domain_Repository_EventRepository $eventRepository) {
-   		$this->eventRepository = $eventRepository;
-   	}
 
     /**
      * Render a menu by dates, e.g. years, months or dates
