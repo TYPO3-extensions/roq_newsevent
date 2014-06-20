@@ -143,7 +143,7 @@ class Tx_RoqNewsevent_Controller_EventController extends Tx_News_Controller_News
     /**
      * Render a menu by dates, e.g. years, months or dates
      *
-     * @param array|null $overwriteDemand
+     * @param array $overwriteDemand
      * @return void
      */
     public function eventDateMenuAction(array $overwriteDemand = NULL) {
