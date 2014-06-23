@@ -52,7 +52,7 @@ class Tx_RoqNewsevent_Domain_Repository_EventRepository extends Tx_News_Domain_R
      * @param Tx_News_Domain_Model_DemandInterface $demand
      * @return array<Tx_Extbase_Persistence_QOM_Constraint>
      */
-    protected function createConstraintsFromDemand(Tx_Extbase_Persistence_QueryInterface $query, Tx_News_Domain_Model_DemandInterface $demand) {
+    protected function createConstraintsFromDemand(\TYPO3\CMS\Extbase\Persistence\QueryInterface $query, Tx_News_Domain_Model_DemandInterface $demand) {
         $constraints    = array();
 
         if ($demand->getCategories() && $demand->getCategories() !== '0') {
