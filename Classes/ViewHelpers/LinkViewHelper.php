@@ -21,19 +21,46 @@ class Tx_RoqNewsevent_ViewHelpers_LinkViewHelper extends Tx_News_ViewHelpers_Lin
      * @return string $link
      */
     public function render(Tx_RoqNewsevent_Domain_Model_Event $newsItem, array $settings = array(), $uriOnly = FALSE, $configuration = array()) {
-        // Override the news detailPid with event backPid
-        if($settings['event']['detailPid']) {
-            $settings['detailPid'] = $settings['event']['detailPid'];
+        if(!$newsItem->getIsEvent()) {
+            return parent::render($newsItem, $settings, $uriOnly, $configuration);
         }
 
-        // Override the news backPid with event backPid
-        if($settings['event']['backPid']) {
-            $settings['backPid'] = $settings['event']['backPid'];
+        $tsSettings = $this->pluginSettingsService->getSettings();
+
+        $this->init();
+
+        $newsType = (int)$newsItem->getType();
+        switch ($newsType) {
+            // internal news
+            case 1:
+                $configuration['parameter'] = $newsItem->getInternalurl();
+                break;
+            // external news
+            case 2:
+                $configuration['parameter'] = $newsItem->getExternalurl();
+                break;
+            // normal news record
+            default:
+                if($settings['event']['detailPid']) {
+                    $tsSettings['defaultDetailPid'] = $settings['event']['detailPid'];
+                    $tsSettings['detailPidDetermination'] = 'default';
+                }
+                $configuration = $this->getLinkToNewsItem($newsItem, $tsSettings, $configuration);
+        }
+        if (isset($tsSettings['link']['typesOpeningInNewWindow'])) {
+            if (\TYPO3\CMS\Core\Utility\GeneralUtility::inList($tsSettings['link']['typesOpeningInNewWindow'], $newsType)) {
+                $this->tag->addAttribute('target', '_blank');
+            }
         }
 
-        $link = parent::render($newsItem, $settings, $uriOnly, $configuration);
+        $url = $this->cObj->typoLink_URL($configuration);
+        if ($uriOnly) {
+            return $url;
+        }
 
-        return $link;
+        $this->tag->addAttribute('href', $url);
+        $this->tag->setContent($this->renderChildren());
+
+        return $this->tag->render();
     }
-
 }
