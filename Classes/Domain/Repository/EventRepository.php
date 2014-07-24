@@ -18,10 +18,10 @@ class Tx_RoqNewsevent_Domain_Repository_EventRepository extends Tx_News_Domain_R
     /**
      * Returns the constraint to determine if a news event is active or not (archived)
      *
-     * @param Tx_Extbase_Persistence_QueryInterface $query
+     * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
      * @return Tx_Extbase_Persistence_QOM_Constraint $constraint
      */
-    protected function createIsActiveConstraint(Tx_Extbase_Persistence_QueryInterface $query) {
+    protected function createIsActiveConstraint(\TYPO3\CMS\Extbase\Persistence\QueryInterface $query) {
         /** @var $constraint Tx_Extbase_Persistence_QOM_Constraint */
         $constraint = NULL;
         $timestamp  = time(); // + date('Z');
@@ -46,11 +46,11 @@ class Tx_RoqNewsevent_Domain_Repository_EventRepository extends Tx_News_Domain_R
     }
 
     /**
-     * Returns an array of constraints created from a given demand object.
-     *
-     * @param Tx_Extbase_Persistence_QueryInterface $query
+     * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
      * @param Tx_News_Domain_Model_DemandInterface $demand
-     * @return array<Tx_Extbase_Persistence_QOM_Constraint>
+     * @return array
+     * @throws InvalidArgumentException
+     * @throws Exception
      */
     protected function createConstraintsFromDemand(\TYPO3\CMS\Extbase\Persistence\QueryInterface $query, Tx_News_Domain_Model_DemandInterface $demand) {
         $constraints    = array();
