@@ -41,6 +41,10 @@ class Tx_RoqNewsevent_ViewHelpers_LinkViewHelper extends Tx_News_ViewHelpers_Lin
                 break;
             // normal news record
             default:
+
+                $tsSettings['link']['skipControllerAndAction'] = 1;
+                $configuration['additionalParams'] .= '&tx_news_pi1[controller]=Event&tx_news_pi1[action]=eventDetail';
+
                 if($settings['event']['detailPid']) {
                     $tsSettings['defaultDetailPid'] = $settings['event']['detailPid'];
                     $tsSettings['detailPidDetermination'] = 'default';
