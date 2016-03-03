@@ -1,5 +1,5 @@
 <?php
-
+namespace Roq\Newsevent\Controller;
 /**
  * Copyright (c) 2012, ROQUIN B.V. (C), http://www.roquin.nl
  *
@@ -13,12 +13,12 @@
  * @subpackage roq_newsevent
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class Tx_RoqNewsevent_Controller_EventController extends Tx_News_Controller_NewsController {
+class EventController extends \GeorgRinger\News\Controller\NewsController {
 
 	/**
 	 * eventRepository
 	 *
-	 * @var Tx_RoqNewsevent_Domain_Repository_EventRepository
+	 * @var \Roq\Newsevent\Domain\Repository\EventRepository
 	 * @inject
 	 */
 	protected $eventRepository;
@@ -43,12 +43,12 @@ class Tx_RoqNewsevent_Controller_EventController extends Tx_News_Controller_News
      * Overrides setViewConfiguration: Use event view configuration instead of news view configuration if an event
      * controller action is used
      *
-     * @param Tx_Extbase_MVC_View_ViewInterface $view
+     * @param \TYPO3\CMS\Extbase\Mvc\View\ViewInterface $view
      * @return void
      */
-    protected function setViewConfiguration(Tx_Extbase_MVC_View_ViewInterface $view) {
+    protected function setViewConfiguration(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface $view) {
         $extbaseFrameworkConfiguration =
-            $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
+            $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 
         // Fetch the current controller action which is set in the news plugin
         $controllerConfigurationAction = implode(';', $extbaseFrameworkConfiguration['controllerConfiguration']['News']['actions']);
@@ -69,29 +69,29 @@ class Tx_RoqNewsevent_Controller_EventController extends Tx_News_Controller_News
     /**
      * Override templateRootPath, layoutRootPath and/or partialRootPath of the news view with event specific settings
      *
-     * @param Tx_Extbase_MVC_View_ViewInterface $view
+     * @param \TYPO3\CMS\Extbase\Mvc\View\ViewInterface $view
      * @param array $extbaseFrameworkConfiguration
      * @return void
      */
-    protected function setEventViewConfiguration(Tx_Extbase_MVC_View_ViewInterface $view) {
+    protected function setEventViewConfiguration(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface $view) {
         // Template Path Override
         $extbaseFrameworkConfiguration =
-            $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
+            $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 
         if (isset($extbaseFrameworkConfiguration['view']['event']['templateRootPath'])
             && strlen($extbaseFrameworkConfiguration['view']['event']['templateRootPath']) > 0
             && method_exists($view, 'setTemplateRootPath')) {
-            $view->setTemplateRootPath(t3lib_div::getFileAbsFileName($extbaseFrameworkConfiguration['view']['event']['templateRootPath']));
+            $view->setTemplateRootPath(\TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($extbaseFrameworkConfiguration['view']['event']['templateRootPath']));
         }
         if (isset($extbaseFrameworkConfiguration['view']['event']['layoutRootPath'])
             && strlen($extbaseFrameworkConfiguration['view']['event']['layoutRootPath']) > 0
             && method_exists($view, 'setLayoutRootPath')) {
-            $view->setLayoutRootPath(t3lib_div::getFileAbsFileName($extbaseFrameworkConfiguration['view']['event']['layoutRootPath']));
+            $view->setLayoutRootPath(\TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($extbaseFrameworkConfiguration['view']['event']['layoutRootPath']));
         }
         if (isset($extbaseFrameworkConfiguration['view']['event']['partialRootPath'])
             && strlen($extbaseFrameworkConfiguration['view']['event']['partialRootPath']) > 0
             && method_exists($view, 'setPartialRootPath')) {
-            $view->setPartialRootPath(t3lib_div::getFileAbsFileName($extbaseFrameworkConfiguration['view']['event']['partialRootPath']));
+            $view->setPartialRootPath(\TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($extbaseFrameworkConfiguration['view']['event']['partialRootPath']));
         }
     }
 
@@ -99,7 +99,7 @@ class Tx_RoqNewsevent_Controller_EventController extends Tx_News_Controller_News
      * Create the demand object which define which records will get shown
      *
      * @param array $settings
-     * @return Tx_News_Domain_Model_NewsDemand
+     * @return \GeorgRinger\News\Domain\Model\NewsDemand
      */
     protected function eventCreateDemandObjectFromSettings($settings) {
         $demand = parent::createDemandObjectFromSettings($settings);
@@ -134,7 +134,7 @@ class Tx_RoqNewsevent_Controller_EventController extends Tx_News_Controller_News
         }
 
         if($settings['event']['startingpoint']) {
-            $demand->setStoragePage(Tx_News_Utility_Page::extendPidListByChildren($settings['event']['startingpoint'], $settings['recursive']));
+            $demand->setStoragePage(\GeorgRinger\News\Utility\Page::extendPidListByChildren($settings['event']['startingpoint'], $settings['recursive']));
         }
 
         return $demand;
@@ -189,11 +189,11 @@ class Tx_RoqNewsevent_Controller_EventController extends Tx_News_Controller_News
     /**
      * Single view of a news event record
      *
-     * @param Tx_RoqNewsevent_Domain_Model_Event $event
+     * @param \Roq\Newsevent\Domain\Model\Event $event
      * @param integer $currentPage current page for optional pagination
      * @return void
      */
-    public function eventDetailAction(Tx_RoqNewsevent_Domain_Model_Event $event = NULL, $currentPage = 1) {
+    public function eventDetailAction(\Roq\Newsevent\Domain\Model\Event $event = NULL, $currentPage = 1) {
         $this->settings = $this->initializeSettings($this->settings);
 
         if (is_null($event)) {
@@ -221,7 +221,7 @@ class Tx_RoqNewsevent_Controller_EventController extends Tx_News_Controller_News
             'currentPage' => (int)$currentPage,
         ));
 
-        Tx_News_Utility_Page::setRegisterProperties($this->settings['detail']['registerProperties'], $event);
+        \GeorgRinger\News\Utility\Page::setRegisterProperties($this->settings['detail']['registerProperties'], $event);
     }
 }
 

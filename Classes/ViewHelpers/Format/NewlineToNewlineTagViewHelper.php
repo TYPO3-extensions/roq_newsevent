@@ -1,4 +1,5 @@
 <?php
+namespace Roq\Newsevent\Viewhelpers\Format;
 /**
  * This file is part of the TYPO3 CMS project.
  *
@@ -19,7 +20,7 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
  * @see TrimViewHelper
  * @author Lorenz Ulrich <lorenz.ulrich@visol.ch>
  */
-class Tx_RoqNewsevent_ViewHelpers_Format_NewlineToNewlineTagViewHelper extends AbstractViewHelper {
+class NewlineToNewlineTagViewHelper extends AbstractViewHelper {
 
 	/**
 	 * @param string $content

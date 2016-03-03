@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-07-09T15:40:57Z" product-name="my_ext">
+		<header/>
+		<body>
+			<trans-unit id="tx_roqnewsevent_domain_model_event">
+				<source>Event info</source>
+			</trans-unit>
+            <trans-unit id="tx_roqnewsevent_domain_model_event.is_event">
+            	<source>Is event</source>
+            </trans-unit>
+			<trans-unit id="tx_roqnewsevent_domain_model_event.event_startdate">
+				<source>Start date</source>
+			</trans-unit>
+			<trans-unit id="tx_roqnewsevent_domain_model_event.even_starttime">
+				<source>Start time</source>
+			</trans-unit>
+			<trans-unit id="tx_roqnewsevent_domain_model_event.event_enddate">
+				<source>End date</source>
+			</trans-unit>
+			<trans-unit id="tx_roqnewsevent_domain_model_event.event_endtime">
+				<source>End time</source>
+			</trans-unit>
+            <trans-unit id="event_location">
+            	<source>Location</source>
+            </trans-unit>
+            <trans-unit id="event_date">
+            	<source>Date</source>
+            </trans-unit>
+            <trans-unit id="event_time">
+            	<source>Time</source>
+            </trans-unit>
+            <trans-unit id="event_till">
+            	<source>to</source>
+            </trans-unit>
+        </body>
+	</file>
+</xliff>
