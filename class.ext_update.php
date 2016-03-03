@@ -8,7 +8,7 @@
  * @description:    Update class for updating news event from version 2.0.X to newer versions
  */
 
-class ext_update extends t3lib_SCbase {
+class ext_update extends \TYPO3\CMS\Backend\Module\BaseScriptClass {
 
     /**
      * Main method that is called whenever UPDATE! menu was clicked. This method outputs the result of the update in HTML
@@ -19,7 +19,7 @@ class ext_update extends t3lib_SCbase {
         $affectedRows   = 0;
         $errorMessage   = '';
         $this->content  = '';
-        $this->doc      = t3lib_div::makeInstance('noDoc');
+        $this->doc      = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('noDoc');
 
         $this->doc->backPath = $GLOBALS['BACK_PATH'];
 

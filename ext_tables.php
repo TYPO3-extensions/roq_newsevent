@@ -73,4 +73,7 @@ $tmp_roq_newsevent_columns = array(
 	',--div--;LLL:EXT:roq_newsevent/Resources/Private/Language/locallang_db.xml:tx_roqnewsevent_domain_model_event,tx_roqnewsevent_is_event, tx_roqnewsevent_startdate, tx_roqnewsevent_starttime, tx_roqnewsevent_enddate, tx_roqnewsevent_endtime, tx_roqnewsevent_location'
 );
 
+// not working
+//$GLOBALS['TYPO3_CONF_VARS']['EXT']['news']['orderByNews'] .= ',eventStartdate';
+
 ?>

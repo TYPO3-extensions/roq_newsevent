@@ -1,9 +1,10 @@
-{namespace n=Tx_News_ViewHelpers}
-{namespace e=Tx_RoqNewsevent_ViewHelpers}
+{namespace n=GeorgRinger\News\ViewHelpers}
+{namespace e=Roq\Newsevent\ViewHelpers}
 <!--
 	=====================
 		Partials/EventList/Item.html
 -->
+
 <div class="article articletype-{newsItem.type}{f:if(condition: newsItem.istopnews, then: ' topnews')}">
 	<!-- header -->
 	<div class="header">
@@ -102,7 +103,7 @@
 
 		</f:else>
 	</f:if>
-
+	
 
 	<!-- teaser text -->
 	<div class="teaser-text">
@@ -117,7 +118,7 @@
 
         <!-- date -->
         <span class="news-list-date">
-            <f:render partial="Event/Item" arguments="{newsItem: newsItem, settings:settings}"/>
+            <f:render partial="Event/Item" arguments="{newsItem:newsItem, settings:settings}"/>
         </span>
         
         <div>

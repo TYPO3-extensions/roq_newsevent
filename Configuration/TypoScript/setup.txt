@@ -2,13 +2,13 @@
 config.tx_extbase {
     persistence {
         classes {
-            Tx_News_Domain_Model_News {
+            GeorgRinger\News\Domain\Model\News {
                 subclasses {
-                    Tx_RoqNewsevent_Event = Tx_RoqNewsevent_Domain_Model_Event
+                    Roq\Newsevent\Event = Roq\Newsevent\Domain\Model\Event
           		}
             }
 
-            Tx_RoqNewsevent_Domain_Model_Event {
+            Roq\Newsevent\Domain\Model\Event {
                 mapping {
                     tableName = tx_news_domain_model_news
 
@@ -26,7 +26,7 @@ config.tx_extbase {
     }
 
     objects {
-        Tx_News_Controller_NewsController.className = Tx_RoqNewsevent_Controller_EventController
+        GeorgRinger\News\Controller\NewsController.className = Roq\Newsevent\Controller\EventController
     }
 }
 
